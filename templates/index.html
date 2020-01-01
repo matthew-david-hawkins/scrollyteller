@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Twitter Poll</title>
+  <!-- Core Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+  <!-- API key -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/config.js')}}"></script>
+  <!-- Leaflet heatmap plugin-->
+  <script type="text/javascript" src="{{url_for('static', filename='js/leaflet-heat.js')}}"></script>
+
+  
+  <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+
+  <!-- D3 -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- Multiselect Bootstrap Addon -->
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  
+  <!-- App specific sytlesheet -->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/scrollytelling.css')}}">
+
+  <!-- Custom fonts for this theme -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Theme CSS -->
+  <link href="{{url_for('static', filename='css/freelancer.css')}}" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Politician Twitter Comparison</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#home">Home</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a>
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+     <!-- Home Section -->
+  <section class="page-section portfolio" id="home">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <h1>Who Has The Most Political Capital on Twitter?</h1>
+          <p><br>Please select two politicians from the dropdown to see a comparison.</p>
+        </div>
+      </div>
+      
+    <div class="row">
+      <div class="col-xs-12  col-md-6">
+        <div class="article">
+          <form>
+            <div class="form-group">
+              <select class="selectpicker" id="keyInputs" multiple data-max-options="2">
+                <option>Bernie Sanders</option>
+                <option>Donald Trump</option>
+                <option>Joe Biden</option>
+                <option>Elizabeth Warren</option>
+                <option>Pete Buttigieg</option>
+                <option>Kamala Harris</option>
+                <option>Andrew Yang</option>
+                <option>Ted Cruz</option>
+                <option>Ben Carson</option>
+                <option>Mike Pence</option>
+                <option>Michael Bloomberg</option>
+                <option>Tulsi Gabbard</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12  col-md-2">
+        <button id="button" type="button" class="btn btn-default">Create Comparison</button>
+      </div>
+      <div class="col-xs-12  col-md-1">
+        <!-- centered spinner  -->
+        <div  id="loadingDiv" style="display:none">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+   <main>
+    <section id="intro">
+        <p><br><strong>Keep Scrolling For More Information.</strong><br></p>
+		</section>
+
+    <section id="scrolly1">
+
+			<article>
+				<div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+            <!-- <p class="stepText">STEP 1</p> -->
+				</div>
+				<div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+					<p class="stepText">This dataset was collected using the Twitter API. <br><br>When users include a politician's campaign hashtag, for example,<br><br><strong>#KeepAmericaGreat</strong> or <strong>#FeeltheBern</strong><br><br> in their tweets, that user's location is added to this map.</p>
+				</div>
+				<div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
+					<p class="stepText">More markers in a particular area indiciate more support in that area.</p>
+				</div>
+				<!-- <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+					<p class="stepText">We only included tweets that originated in the United States.</p>
+				</div> -->
+			</article>
+
+			<figure style="height: 523.5px; top: 261.75px;">
+        <!-- <p>1</p> -->
+        <div id="map", style="height: 100%; width:100%"></div>
+      </figure>
+      
+    </section>
+
+    <section id="outro1">
+      <p></p>
+    </section>
+    <br>
+    <br>
+
+    <section id="intro2">
+        <p><br></p>
+      </section>
+
+    <section id="scrolly2">
+
+      <article>
+        <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+          <!-- <p class="stepText">STEP 1</p> -->
+        </div>
+        <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+          <p class="stepText">To quantify how popular a politician is on Twitter, we totalled his/her <strong>Favorites & Retweets</strong> for each day.</p>
+        </div>
+        <!-- <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
+          <p class="stepText">Hence this shows how much activity each politician is getting each day by calculating the sum of favorites + retweets.</p>
+        </div> -->
+        <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+          <p class="stepText">At the start of this project, we analyzed the 3200 most recent tweets for each politician.<br><br> More tweets are added to the dataset each day.</p>
+        </div>
+      </article>
+  
+      <figure style="height: 523.5px; top: 261.75px;">
+        <!-- <p>1</p> -->
+        <div id="lineplot", style="height: 100%; width:100%"></div>
+      </figure>
+    </section>
+  
+    <section id="outro2">
+      <p><br></p>
+    </section>
+    <br>
+    <br>
+    <section id="intro3">
+        <p></p>
+    </section>
+  
+    <section id="scrolly3">
+
+      <article>
+        <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+          <!-- <p class="stepText">STEP 1</p> -->
+        </div>
+        <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+          <p class="stepText">The most popular tweet has the highest total of Favorites and Retweets.</p>
+        </div>
+        <!-- <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
+          <p class="stepText">To get the 5 most common words we extracted all of the politician's tweets and counted the frequency at which each word appeared.</p>
+        </div>
+        <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+          <p class="stepText">We removed the 500 most common words in the English language to create a population of unique words.</p>
+        </div>   -->
+      </article>
+
+      <figure id="figure3" style="height: 523.5px; top: 261.75px;">
+        <!-- <p>1</p> -->
+      </figure>
+    </section>
+      
+    <section id="outro3">
+      <p></p>
+    </section>
+
+    <section id="intro4">
+      <p></p>
+    </section>
+
+    <section id="scrolly4">
+
+      <article>
+        <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+          <!-- <p class="stepText">STEP 1</p> -->
+        </div>
+        <!-- <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+          <p class="stepText">The most popular tweet is the sum of favorites and retweets for a single tweet.</p>
+        </div> -->
+        <div class="step" data-step="2" data-scrollama-index="2" style="height: 785px;">
+          <p class="stepText">To analyze a politician's unique twitter vocabulary, we extracted each word from all of their tweets and calculated the frequency at which each word appeared.
+            <br><br>We removed the 500 most common words in the English language to create a population of unique words.
+          </p>
+        </div>
+        <!-- <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+          <p class="stepText">We disregarded the 500 most common words in the English language to create a population of unique words.</p>
+        </div>   -->
+      </article>
+
+      <figure id="figure4" style="height: 523.5px; top: 261.75px;">
+        <!-- <p>1</p> -->
+      </figure>
+    </section>
+      
+    <section id="outro4">
+      <p><br>We hope you found this analysis interesting! Compare more politicians at the top of the page.<br></p>
+      <p><br><br></p>
+      <p><br><br></p>
+      <p><br><br></p>
+      <p><br><br></p>
+      <p><br><br></p>
+      <p><br><br></p>
+    </section>
+
+    </main> 
+
+  </div>
+
+  <!-- Scrollama javascript -->
+  <script src="{{url_for('static', filename='js/stickyfill.min.js')}}"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/scrollytelling.js')}}"></script>
+
+  <!-- text analysis functions -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/textanalysis.js')}}"></script>
+
+  <!-- Mapping and plotting functions -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/visualization.js')}}"></script>
+
+  <!-- Monitors user inputs, populates webpage -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
+
+
+
+      
+  </section>
+
+  <!-- About section -->
+  
+  <section class="page-section bg-primary text-white mb-0" id="about">
+      <div class="container">
+  
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+        
+  
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="divider-custom-line"></div>
+         
+        </div>
+
+        <!-- About Section Content -->
+      <div class="row">
+          <div class="col-lg-12 text-center">
+            <p class="lead">
+              <h3 class="text-center" > Political Reach on Twitter Without the Political Advertising</h3>
+              <h4>  We looked at the quantitative and qualitative data of some of this year’s
+                most popular politician’s and Presidential candidates to find out how they
+                all compare.</h4> <br>
+                <h4> On October 30th, 2019, Twitter’s CEO, Jack Dorsey announced that Twitter
+                    will stop accepting political ads to reduce significant risk to politics.</h4>
+            </p>
+            
+          </div>
+          
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="{{url_for('static', filename='images/tweet1.jpg')}}" alt="Jake tweet1"  border-radius= "4px" padding= "5px" width= "400px"><br><br><br>
+             
+                <img src="{{url_for('static', filename='images/tweet2.jpg')}}" alt="Jake tweet2" border-radius= "4px" padding= "5px" width= "400px" ><br><br><br>
+            
+                <img src="{{url_for('static', filename='images/tweet3.jpg')}}" alt="Jake tweet3"border-radius= "4px" padding= "5px" width= "400px" ><br><br><br>
+            </div>  
+            <div class="col-lg-6">
+                <p class="lead">
+                    <h4>  The announcement comes amid the scrutiny of social media companies’ handling of political
+                        ads.Large social media companies, such as Facebook, have been criticized for allowing politicians
+                        to run false advertisements. This decision puts Twitter at odds with other social media companies
+                        that have defended their policies of not fact-checking political ads</h4> </p>
+            </div>
+          </div>
+  
+        
+        </div>
+      </section>
+ <!-- Footer -->
+  <footer class="footer text-center">
+      <div class="container">
+        <div class="row">
+  
+          <!-- Footer Location -->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">GitHub Location</h4>
+            <p class="lead mb-0">https://github.com/angeles-ramirez/d3-data-viz</p>
+          </div>
+  
+          <!-- Footer Social Icons -->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h3 class="text-uppercase mb-4">Authors</h4>
+           
+              <h4 class="text-uppercase mb-4">Angeles Ramirez </h4><br>
+              <h4 class="text-uppercase mb-4">Matthew Hawkins</h4><br>
+              <h4 class="text-uppercase mb-4">Moumita Ghanti</h4><br>
+              <h4 class="text-uppercase mb-4">Victor Galstyan</h4>
+              
+          </div>
+  
+          <!-- Footer About Text -->
+          <div class="col-lg-4">
+            <h4 class="text-uppercase mb-4">Heroku App LinK</h4>
+            <p class="lead mb-0">
+              <a href="https://twitter-history-api.herokuapp.com/">Twitter Politician Comparison</a>.</p>
+          </div>
+  
+        </div>
+      </div>
+    </footer>
+  
+    <!-- Copyright Section -->
+    <section class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; Your Website 2019</small>
+      </div>
+    </section>
+  
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-to-top d-lg-none position-fixed ">
+      <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Contact Form JavaScript >
+  <script src="js/jqBootstrapValidation.js"></script>
+  <script src="js/contact_me.js"></script-->
+
+  <!-- Custom scripts for this template -->
+  <script src="{{url_for('static', filename='js/freelancer.js')}}"></script>
+
+</body>
+
+</html>
