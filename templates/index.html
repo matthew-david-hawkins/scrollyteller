@@ -44,208 +44,202 @@
   <!-- App specific sytlesheet -->
   <link rel="stylesheet" href="{{url_for('static', filename='css/scrollytelling.css')}}">
 
-  <!-- Custom fonts for this theme -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-  <!-- Theme CSS -->
-  <link href="{{url_for('static', filename='css/freelancer.css')}}" rel="stylesheet">
-
 </head>
 
 <body>
+  
   <div class="container">
-     <!-- Home Section -->
-  <section class="page-section portfolio" id="home">
-    <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <h1>Who Has The Most Political Capital on Twitter?</h1>
-          <p><br>Please select two politicians from the dropdown to see a comparison.</p>
-        </div>
-      </div>
-      
-    <div class="row">
-      <div class="col-xs-12  col-md-6">
-        <div class="article">
-          <form>
-            <div class="form-group">
-              <select class="selectpicker" id="keyInputs" multiple data-max-options="2">
-                <option>Bernie Sanders</option>
-                <option>Donald Trump</option>
-                <option>Joe Biden</option>
-                <option>Elizabeth Warren</option>
-                <option>Pete Buttigieg</option>
-                <option>Kamala Harris</option>
-                <option>Andrew Yang</option>
-                <option>Ted Cruz</option>
-                <option>Ben Carson</option>
-                <option>Mike Pence</option>
-                <option>Michael Bloomberg</option>
-                <option>Tulsi Gabbard</option>
-              </select>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <!-- Home Section -->
+   
+   <div class="row">
+       <div class="col-xs-12 col-md-12">
+         <h1>Who Has The Most Political Capital on Twitter?</h1>
+         <p><br>Please select two politicians from the dropdown to see a comparison.</p>
+       </div>
+   </div>
+     
+   <div class="row">
+     <div class="col-xs-12  col-md-6">
+       <div class="article">
+         <form>
+           <div class="form-group">
+             <select class="selectpicker" id="keyInputs" multiple data-max-options="2">
+               <option>Bernie Sanders</option>
+               <option>Donald Trump</option>
+               <option>Joe Biden</option>
+               <option>Elizabeth Warren</option>
+               <option>Pete Buttigieg</option>
+               <option>Kamala Harris</option>
+               <option>Andrew Yang</option>
+               <option>Ted Cruz</option>
+               <option>Ben Carson</option>
+               <option>Mike Pence</option>
+               <option>Michael Bloomberg</option>
+               <option>Tulsi Gabbard</option>
+             </select>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
 
-    <div class="row">
-      <div class="col-xs-12  col-md-2">
-        <button id="button" type="button" class="btn btn-default">Create Comparison</button>
-      </div>
-      <div class="col-xs-12  col-md-1">
-        <!-- centered spinner  -->
-        <div  id="loadingDiv" style="display:none">
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-</section>
+   <div class="row">
+     <div class="col-xs-12  col-md-2">
+       <button id="button" type="button" class="btn btn-default">Create Comparison</button>
+     </div>
+     <div class="col-xs-12  col-md-1">
+       <!-- centered spinner  -->
+       <div  id="loadingDiv" style="display:none">
+         <div class="d-flex justify-content-center">
+           <div class="spinner-border text-primary" role="status">
+             <span class="sr-only">Loading...</span>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
 
-   <main>
-    <section id="intro">
-        <p><br><strong>Keep Scrolling For More Information.</strong><br></p>
-		</section>
 
-    <section id="scrolly1">
-
-			<article>
-				<div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
-            <!-- <p class="stepText">STEP 1</p> -->
-				</div>
-				<div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
-					<p class="stepText">This dataset was collected using the Twitter API. <br><br>When users include a politician's campaign hashtag, for example,<br><br><strong>#KeepAmericaGreat</strong> or <strong>#FeeltheBern</strong><br><br> in their tweets, that user's location is added to this map.</p>
-				</div>
-				<div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
-					<p class="stepText">More markers in a particular area indiciate more support in that area.</p>
-				</div>
-				<!-- <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
-					<p class="stepText">We only included tweets that originated in the United States.</p>
-				</div> -->
-			</article>
-
-			<figure style="height: 523.5px; top: 261.75px;">
-        <!-- <p>1</p> -->
-        <div id="map", style="height: 100%; width:100%"></div>
-      </figure>
-      
+  <main>
+   <section id="intro">
+       <p><br><strong>Keep Scrolling For More Information.</strong><br></p>
     </section>
 
-    <section id="outro1">
-      <p></p>
-    </section>
-    <br>
-    <br>
+   <section id="scrolly1">
 
-    <section id="intro2">
-        <p><br></p>
-      </section>
+           <article>
+               <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+           <!-- <p class="stepText">STEP 1</p> -->
+               </div>
+               <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+                   <p class="stepText">This dataset was collected using the Twitter API. <br><br>When users include a politician's campaign hashtag, for example,<br><br><strong>#KeepAmericaGreat</strong> or <strong>#FeeltheBern</strong><br><br> in their tweets, that user's location is added to this map.</p>
+               </div>
+               <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
+                   <p class="stepText">More markers in a particular area indiciate more support in that area.</p>
+               </div>
+               <!-- <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+                   <p class="stepText">We only included tweets that originated in the United States.</p>
+               </div> -->
+           </article>
 
-    <section id="scrolly2">
+           <figure style="height: 523.5px; top: 261.75px;">
+       <!-- <p>1</p> -->
+       <div id="map", style="height: 100%; width:100%"></div>
+     </figure>
+     
+   </section>
 
-      <article>
-        <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
-          <!-- <p class="stepText">STEP 1</p> -->
-        </div>
-        <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
-          <p class="stepText">To quantify how popular a politician is on Twitter, we totalled his/her <strong>Favorites & Retweets</strong> for each day.</p>
-        </div>
-        <!-- <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
-          <p class="stepText">Hence this shows how much activity each politician is getting each day by calculating the sum of favorites + retweets.</p>
-        </div> -->
-        <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
-          <p class="stepText">At the start of this project, we analyzed the 3200 most recent tweets for each politician.<br><br> More tweets are added to the dataset each day.</p>
-        </div>
-      </article>
-  
-      <figure style="height: 523.5px; top: 261.75px;">
-        <!-- <p>1</p> -->
-        <div id="lineplot", style="height: 100%; width:100%"></div>
-      </figure>
-    </section>
-  
-    <section id="outro2">
-      <p><br></p>
-    </section>
-    <br>
-    <br>
-    <section id="intro3">
-        <p></p>
-    </section>
-  
-    <section id="scrolly3">
+   <section id="outro1">
+     <p></p>
+   </section>
+   <br>
+   <br>
 
-      <article>
-        <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
-          <!-- <p class="stepText">STEP 1</p> -->
-        </div>
-        <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
-          <p class="stepText">The most popular tweet has the highest total of Favorites and Retweets.</p>
-        </div>
-        <!-- <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
-          <p class="stepText">To get the 5 most common words we extracted all of the politician's tweets and counted the frequency at which each word appeared.</p>
-        </div>
-        <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
-          <p class="stepText">We removed the 500 most common words in the English language to create a population of unique words.</p>
-        </div>   -->
-      </article>
+   <section id="intro2">
+       <p><br></p>
+     </section>
 
-      <figure id="figure3" style="height: 523.5px; top: 261.75px;">
-        <!-- <p>1</p> -->
-      </figure>
-    </section>
-      
-    <section id="outro3">
-      <p></p>
-    </section>
+   <section id="scrolly2">
 
-    <section id="intro4">
-      <p></p>
-    </section>
+     <article>
+       <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+         <!-- <p class="stepText">STEP 1</p> -->
+       </div>
+       <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+         <p class="stepText">To quantify how popular a politician is on Twitter, we totalled his/her <strong>Favorites & Retweets</strong> for each day.</p>
+       </div>
+       <!-- <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
+         <p class="stepText">Hence this shows how much activity each politician is getting each day by calculating the sum of favorites + retweets.</p>
+       </div> -->
+       <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+         <p class="stepText">At the start of this project, we analyzed the 3200 most recent tweets for each politician.<br><br> More tweets are added to the dataset each day.</p>
+       </div>
+     </article>
+ 
+     <figure style="height: 523.5px; top: 261.75px;">
+       <!-- <p>1</p> -->
+       <div id="lineplot", style="height: 100%; width:100%"></div>
+     </figure>
+   </section>
+ 
+   <section id="outro2">
+     <p><br></p>
+   </section>
+   <br>
+   <br>
 
-    <section id="scrolly4">
+   <section id="intro3">
+       <p></p>
+   </section>
+ 
+   <section id="scrolly3">
 
-      <article>
-        <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
-          <!-- <p class="stepText">STEP 1</p> -->
-        </div>
-        <!-- <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
-          <p class="stepText">The most popular tweet is the sum of favorites and retweets for a single tweet.</p>
-        </div> -->
-        <div class="step" data-step="2" data-scrollama-index="2" style="height: 785px;">
-          <p class="stepText">To analyze a politician's unique twitter vocabulary, we extracted each word from all of their tweets and calculated the frequency at which each word appeared.
-            <br><br>We removed the 500 most common words in the English language to create a population of unique words.
-          </p>
-        </div>
-        <!-- <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
-          <p class="stepText">We disregarded the 500 most common words in the English language to create a population of unique words.</p>
-        </div>   -->
-      </article>
+     <article>
+       <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+         <!-- <p class="stepText">STEP 1</p> -->
+       </div>
+       <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+         <p class="stepText">The most popular tweet has the highest total of Favorites and Retweets.</p>
+       </div>
+       <!-- <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
+         <p class="stepText">To get the 5 most common words we extracted all of the politician's tweets and counted the frequency at which each word appeared.</p>
+       </div>
+       <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+         <p class="stepText">We removed the 500 most common words in the English language to create a population of unique words.</p>
+       </div>   -->
+     </article>
 
-      <figure id="figure4" style="height: 523.5px; top: 261.75px;">
-        <!-- <p>1</p> -->
-      </figure>
-    </section>
-      
-    <section id="outro4">
-      <p><br>We hope you found this analysis interesting! Compare more politicians at the top of the page.<br></p>
-      <p><br><br></p>
-      <p><br><br></p>
-      <p><br><br></p>
-      <p><br><br></p>
-      <p><br><br></p>
-      <p><br><br></p>
-    </section>
+     <figure id="figure3" style="height: 523.5px; top: 261.75px;">
+       <!-- <p>1</p> -->
+     </figure>
+   </section>
+     
+   <section id="outro3">
+     <p></p>
+   </section>
 
-    </main> 
+   <section id="intro4">
+     <p></p>
+   </section>
+
+   <section id="scrolly4">
+
+     <article>
+       <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+         <!-- <p class="stepText">STEP 1</p> -->
+       </div>
+       <!-- <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
+         <p class="stepText">The most popular tweet is the sum of favorites and retweets for a single tweet.</p>
+       </div> -->
+       <div class="step" data-step="2" data-scrollama-index="2" style="height: 785px;">
+         <p class="stepText">To analyze a politician's unique twitter vocabulary, we extracted each word from all of their tweets and calculated the frequency at which each word appeared.
+           <br><br>We removed the 500 most common words in the English language to create a population of unique words.
+         </p>
+       </div>
+       <!-- <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+         <p class="stepText">We disregarded the 500 most common words in the English language to create a population of unique words.</p>
+       </div>   -->
+     </article>
+
+     <figure id="figure4" style="height: 523.5px; top: 261.75px;">
+       <!-- <p>1</p> -->
+     </figure>
+   </section>
+     
+   <section id="outro4">
+     <p><br>We hope you found this analysis interesting! Compare more politicians at the top of the page.<br></p>
+     <p><br><br></p>
+     <p><br><br></p>
+     <p><br><br></p>
+     <p><br><br></p>
+     <p><br><br></p>
+     <p><br><br></p>
+   </section>
+
+   </main> 
 
   </div>
-
+  
   <!-- Scrollama javascript -->
   <script src="{{url_for('static', filename='js/stickyfill.min.js')}}"></script>
   <script src="https://unpkg.com/scrollama"></script>
@@ -259,11 +253,6 @@
 
   <!-- Monitors user inputs, populates webpage -->
   <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
-
-
-
-      
-  </section>
 
 </body>
 
