@@ -1,1 +1,0 @@
-# sevenday.py makes API calls to twitter and gathers the all the tweets that mention a certain polician within the last 7 days and adds them to a Mongo database
