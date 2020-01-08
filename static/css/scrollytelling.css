@@ -1,3 +1,7 @@
+.circle-transition {
+  transition: transform 1.5s 0s, opacity 1.25s 0s;
+}
+
 #scrolly1 {
   position: relative;
   display: -webkit-box;
@@ -73,7 +77,7 @@ figure {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  background-color: #f1f1f1;
+  background-color: white;
   z-index: 0;
 }
 
@@ -113,5 +117,10 @@ figure p {
   padding: 1rem;
   font-size: 1.5rem;
   background-color: #f3f3f3;
+}
+
+#lollipop-container {
+  -webkit-transition: transform 1s; /* For Safari 3.1 to 6.0 */
+  transition: transform 1s;
 }
 

@@ -11,6 +11,10 @@ var myMap = buildMap();
 // Add an empty contorl to map
 var layerControl = L.control.layers({}, {}, {collapsed:false}).addTo(myMap); // update the leaflet control with the named heatlayer
 
+// Initialize Layer group
+var pLayer1 = L.layerGroup([]);
+var pLayer2 = L.layerGroup([]);
+
 // Initialize plot
 function initializePlot(){
     Plotly.newPlot("lineplot", 
@@ -34,9 +38,18 @@ function initializePlot(){
 }
 
 // Select user choices from multi drop down
-var selectv = [] // array of the selected politicians
+var selectv = []; // array of the selected politicians
+var values = [];
+
+//initialize selection
+selected = d3.select("#keyInputs") // select the select
+.selectAll("option:checked")  // select the selected values
+.each(function() { values.push(this.value) 
+  }); // for each of those, get its value
+
+selectv = values
+
 d3.select("#keyInputs").on("change",function(d){ 
-    var values = [];
 
     selected = d3.select(this) // select the select
       .selectAll("option:checked")  // select the selected values
@@ -64,7 +77,7 @@ function completeFunction() {
 
 function handleSubmit() {
     // Prevent the page from refreshing
-    d3.event.preventDefault();
+    //d3.event.preventDefault();
     
     loadingFunction(); // show loading spinnner
 
@@ -86,7 +99,7 @@ function handleSubmit() {
     
     // initialize text analysis slides
     d3.select('#figure3').html("");
-    d3.select('#figure4').html("");
+    //d3.select('#figure4').html("");
 
 
     // Table which translates form selection into twitter username
@@ -122,43 +135,46 @@ function handleSubmit() {
     //---------------------------------------
 
     d3.json(hashtagUrl1).then(function(data){
-        heatlayer = createHeatLayer(data, "SkyBlue", myMap) // Create a heatlayer in fuschia and add it to the map
-        layerControl.addOverlay(heatlayer, selectv[0].fontcolor("SkyBlue")); // add the heatlayer to the Leaflet control
+        pLayer1 = createHeatLayer(data, "SkyBlue", myMap) // Create a heatlayer in fuschia and add it to the map
+        layerControl.addOverlay(pLayer1, selectv[0].fontcolor("SkyBlue")); // add the heatlayer to the Leaflet control
         layerControl.expand(); // expand the layer control
     });
 
     // Make API calls and analyze responses
     d3.json(hashtagUrl2).then(function(data){
-        heatlayer = createHeatLayer(data, "ORANGE", myMap) // Create a heatlayer in orange and add it to the map
-        layerControl.addOverlay(heatlayer, selectv[1].fontcolor("ORANGE")); // add the heatlayer to the Leaflet control
+        pLayer2 = createHeatLayer(data, "ORANGE", myMap) // Create a heatlayer in orange and add it to the map
+        layerControl.addOverlay(pLayer2, selectv[1].fontcolor("ORANGE")); // add the heatlayer to the Leaflet control
     });
 
     // Make API calls and analyze responses
     d3.json(userUrl1).then(function(data){
-        textAnalysis = analyzeTweets(data); // perform text analysis of the tweets
-        tweetReachVsTime(data); // perform text analysis of the tweets
+        textAnalysis = analyzeTweets(data, "#1f77b4", "1"); // perform text analysis of the tweets
+        tweetReachVsTime(data, 'rgba(31, 119, 180, 1)'); // perform text analysis of the tweets
         console.log(textAnalysis)
         // Set up most popular tweet slide
         d3.select('#figure3').insert("p").html(`<br>${selectv[0]}'s Most Popular Tweet: <br><br><strong>${textAnalysis.mostPopular}</strong><br><br>
         was retweeted ${textAnalysis.retweetCount} times<br>`).style("color", "#1f77b4") // Plotly "muted blue"
         // Set up most vocabulary slide
-        d3.select('#figure4').insert("p").html(`<br>${selectv[0]} uses these words: <br><br><strong>${textAnalysis.vocab}</strong><br><br> 
-        unusually often in tweets.`).style("color", "#1f77b4") // Plotly "muted blue"
+        // d3.select('#figure4').insert("p").html(`<br>${selectv[0]} uses these words: <br><br><strong>${textAnalysis.vocab}</strong><br><br> 
+        // unusually often in tweets.`).style("color", "#1f77b4") // Plotly "muted blue"
     });
 
     // Make API calls and analyze responses
     d3.json(userUrl2).then(function(data){
-        textAnalysis = analyzeTweets(data);
-        tweetReachVsTime(data);
+        textAnalysis = analyzeTweets(data, "#ff7f0e", "2");
+        tweetReachVsTime(data, 'rgba(255, 127, 14, 1)');
         completeFunction(); // hide spinner once API calls have returned
         d3.select('#figure3').insert("p").html(`<br>${selectv[1]}'s Most Popular Tweet: <br><br><strong>${textAnalysis.mostPopular}</strong><br><br>
         was retweeted ${textAnalysis.retweetCount} times<br>`).style("color", "#ff7f0e"); // Plotly "safety orange"
         // Set up most vocabulary slide
-        d3.select('#figure4').insert("p").html(`<br>${selectv[1]} uses these words: <br><br><strong>${textAnalysis.vocab}</strong><br><br> 
-        unusually often in tweets.`).style("color", "#ff7f0e"); // Plotly "safety orange"
+        // d3.select('#figure4').insert("p").html(`<br>${selectv[1]} uses these words: <br><br><strong>${textAnalysis.vocab}</strong><br><br> 
+        // unusually often in tweets.`).style("color", "#ff7f0e"); // Plotly "safety orange"
     });
 
 };
 
 // Event listener on "Compare" button
 d3.select("#button").on("click", handleSubmit);
+
+// Initialize
+handleSubmit();

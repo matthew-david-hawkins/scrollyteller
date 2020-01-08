@@ -45,7 +45,7 @@ const mostCommonWords =["im", "its", "rt", "&amp", "", "&amp;", "-", "amp", "rea
 "bring", "yes", "distant", "fill", "east", "paint", "language", "among"];
 
 
-function analyzeTweets(tweets){
+function analyzeTweets(tweets, lollipopColor, lollipopIndex){
 // Args - tweets: json
 // return - object vocab: array, mostPopularTweet: str
 // This functions takes many tweets for one user and returns an object wiht a list of the most common words used in the tweets and the tweet with the most "reach"
@@ -93,15 +93,114 @@ function analyzeTweets(tweets){
 
   // create an array of then 10 most used words which are not in the hardcoded array of common words
   vocab = []
+  vocab_counts = []
+  vocab_list = []
+
   i = 0
   j = 0
   while (i < 10) {
     if (mostCommonWords.includes(sortable[j][0]) === false) { // if the next most common word is not in the most common words add it to vocab, otherwise continue
       vocab.push(sortable[j][0])
+      vocab_counts.push(sortable[j][1])
+      vocab_list.push({"word": sortable[j][0], "value": sortable[j][1]})
       i++;
     }
     j++;
   }
+
+  // set the dimensions and margins of the graph
+  var clientHeight = document.getElementById('figure4').clientHeight;
+  var clientWidth = document.getElementById('figure4').clientWidth;
+  console.log(clientHeight)
+  console.log(clientWidth)
+  var margin = {top: 10, right: 30, bottom: 40, left: 100},
+  width = clientWidth - margin.left - margin.right,
+  height = clientHeight - margin.top - margin.bottom;
+
+  // append the svg object to the body of the page
+  var svg = d3.select(`#lollipop${lollipopIndex}`)
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+
+  console.log(vocab)
+  console.log(vocab_counts)
+  console.log(Math.max(vocab_counts))
+
+  // Add X axis
+  var x = d3.scaleLinear()
+  .domain([0, vocab_counts[0]])
+  .range([ 0, width]);
+  svg.append("g")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(x))
+  .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    .style("text-anchor", "end");
+
+  // Y axis
+  var y = d3.scaleBand()
+  .range([ 0, height ])
+  .domain(vocab_list.map(function(d) { return d.word; }))
+  .padding(1);
+  svg.append("g")
+  .call(d3.axisLeft(y))
+
+
+  // Lines
+  svg.selectAll("myline")
+  .data(vocab_list)
+  .enter()
+  .append("line")
+  .attr("x1", x(0))
+  .attr("x2", x(0))
+  .attr("y1", function(d) { return y(d.word); })
+  .attr("y2", function(d) { return y(d.word); })
+  .attr("stroke", "grey")
+
+  // Circles
+  svg.selectAll("mycircle")
+  .data(vocab_list)
+  .enter()
+  .append("circle")
+  .attr("cx", x(0))
+  .attr("cy", function(d) { return y(d.word); })
+  .attr("r", "5")
+  .style("fill", lollipopColor)
+  .attr("stroke", "black")
+
+  // Change the X coordinates of line and circle
+  //var svg = d3.select("#my_dataviz")
+  // Select the node that will be observed for mutations
+  const targetNode = document.getElementById('this-step-monitor');
+
+  // Options for the observer (which mutations to observe)
+  const config = { attributes: true, childList: true, subtree: true };
+
+  // Callback function to execute when mutations are observed
+  const callback = function(mutationsList, observer) {
+    svg.selectAll("circle")
+    .transition()
+    .duration(2000)
+    .attr("cx", function(d) { return x(d.value); })
+  
+    svg.selectAll("line")
+    .transition()
+    .duration(2000)
+    .attr("x1", function(d) { return x(d.value); })
+    console.log(response)
+  };
+
+  // Create an observer instance linked to the callback function
+  const observer = new MutationObserver(callback);
+
+  // Start observing the target node for configured mutations
+  observer.observe(targetNode, config);
+
 
   var response = {"mostPopular": mostPopularTweet, "favoriteCount": maxFavorites, "retweetCount": maxRetweets, "tweetDate": tweetDate, "vocab": vocab};
   return response;

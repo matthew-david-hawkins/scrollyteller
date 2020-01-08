@@ -18,7 +18,6 @@
   <script type="text/javascript" src="{{url_for('static', filename='js/config.js')}}"></script>
   <!-- Leaflet heatmap plugin-->
   <script type="text/javascript" src="{{url_for('static', filename='js/leaflet-heat.js')}}"></script>
-
   
   <!-- Plotly -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -64,8 +63,8 @@
          <form>
            <div class="form-group">
              <select class="selectpicker" id="keyInputs" multiple data-max-options="2">
-               <option>Bernie Sanders</option>
-               <option>Donald Trump</option>
+               <option  selected='selected'>Bernie Sanders</option>
+               <option  selected='selected'>Donald Trump</option>
                <option>Joe Biden</option>
                <option>Elizabeth Warren</option>
                <option>Pete Buttigieg</option>
@@ -151,7 +150,7 @@
        <!-- <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
          <p class="stepText">Hence this shows how much activity each politician is getting each day by calculating the sum of favorites + retweets.</p>
        </div> -->
-       <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
+       <div class="step" data-step="3" data-scrollama-index="2" style="height: 785px;">
          <p class="stepText">At the start of this project, we analyzed the 3200 most recent tweets for each politician.<br><br> More tweets are added to the dataset each day.</p>
        </div>
      </article>
@@ -205,23 +204,22 @@
    <section id="scrolly4">
 
      <article>
-       <div class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
+       <div id="this-step-monitor" class="step is-active" data-step="1" data-scrollama-index="0" style="height: 785px;">
          <!-- <p class="stepText">STEP 1</p> -->
        </div>
-       <!-- <div class="step" data-step="2" data-scrollama-index="1" style="height: 785px;">
-         <p class="stepText">The most popular tweet is the sum of favorites and retweets for a single tweet.</p>
-       </div> -->
-       <div class="step" data-step="2" data-scrollama-index="2" style="height: 785px;">
+       <div class="step" data-step="1" data-scrollama-index="1" style="height: 785px;">
          <p class="stepText">To analyze a politician's unique twitter vocabulary, we extracted each word from all of their tweets and calculated the frequency at which each word appeared.
            <br><br>We removed the 500 most common words in the English language to create a population of unique words.
          </p>
        </div>
-       <!-- <div class="step" data-step="4" data-scrollama-index="3" style="height: 785px;">
-         <p class="stepText">We disregarded the 500 most common words in the English language to create a population of unique words.</p>
-       </div>   -->
      </article>
 
-     <figure id="figure4" style="height: 523.5px; top: 261.75px;">
+     <figure id="figure4" style="height: 523.5px; top: 261.75px; overflow:hidden;">
+      <div id="lollipop-container">
+        <div id="lollipop1"></div>
+        <div id="lollipop2"></div>
+      </div>
+
        <!-- <p>1</p> -->
      </figure>
    </section>
@@ -244,7 +242,7 @@
   <script src="{{url_for('static', filename='js/stickyfill.min.js')}}"></script>
   <script src="https://unpkg.com/scrollama"></script>
   <script type="text/javascript" src="{{url_for('static', filename='js/scrollytelling.js')}}"></script>
-
+  
   <!-- text analysis functions -->
   <script type="text/javascript" src="{{url_for('static', filename='js/textanalysis.js')}}"></script>
 

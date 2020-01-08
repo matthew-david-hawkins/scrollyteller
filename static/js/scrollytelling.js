@@ -2,8 +2,6 @@
 // Scrollytelling handles scrolling events
 //-------------------------------------------------------
 
-
-
 // using d3 for convenience
 var main = d3.select('main')
 var scrolly1 = main.select('#scrolly1');
@@ -71,7 +69,33 @@ function handleResize() {
 // scrollama event handlers
 function handleStepEnter1(response) {
   console.log(response)
-  // response = { element, direction, index }
+  
+  switch(response.index) {
+    case 0:
+      // code block
+      myMap.removeLayer(pLayer1)
+      myMap.removeLayer(pLayer2)
+      myMap.addLayer(pLayer1)
+      myMap.addLayer(pLayer2)
+      break;
+    case 1:
+      // code block
+      myMap.removeLayer(pLayer1)
+      myMap.removeLayer(pLayer2)
+      myMap.addLayer(pLayer1)
+      break;
+    case 2:
+      myMap.removeLayer(pLayer1)
+      myMap.removeLayer(pLayer2)
+      myMap.addLayer(pLayer2)
+      break;
+    case 3:
+      break;
+
+    default:
+      // code block
+  }
+
 
   // add color to current step only
   step1.classed('is-active', function (d, i) {
@@ -85,6 +109,30 @@ function handleStepEnter1(response) {
 
 function handleStepEnter2(response) {
   console.log(response)
+
+  switch(response.index) {
+    case 0:
+      // code block
+      emphasizeTrace2('rgba(31, 119, 180, 1)')
+      emphasizeTrace1('rgba(255, 127, 14, 1)');
+      break;
+    case 1:
+      // code block
+      emphasizeTrace2('rgba(31, 119, 180, 1)')
+      emphasizeTrace1('rgba(255, 127, 14, 0.25)');
+      break;
+    case 2:
+      emphasizeTrace2('rgba(31, 119, 180, 0.25)');
+      emphasizeTrace1('rgba(255, 127, 14, 1)');
+      break;
+    case 3:
+      emphasizeTrace2('rgba(31, 119, 180, 1)');
+      emphasizeTrace1('rgba(255, 127, 14, 1)');
+      break;
+
+    default:
+      // code block
+  }
   // response = { element, direction, index }
 
   // add color to current step only
@@ -98,6 +146,7 @@ function handleStepEnter2(response) {
 }
 
 function handleStepEnter3(response) {
+
   console.log(response)
   // response = { element, direction, index }
 
@@ -112,7 +161,24 @@ function handleStepEnter3(response) {
 }
 
 function handleStepEnter4(response) {
-  console.log(response)
+  var lolli = document.getElementById("lollipop-container");
+
+  switch(response.index) {
+    case 0:
+      //lolli1.style.maxHeight = "100%";
+      lolli.style.transform = "translate(0px, 0px)";
+      //lolli2.style.maxHeight = "0%";
+      // code block
+      break;
+    case 1:
+      // code block
+      lolli.style.transform = "translate(0px, -500px)";
+      //lolli1.style.maxHeight = "0%";
+      //lolli2.style.maxHeight = "100%";
+      break;
+
+    default:
+  }
   // response = { element, direction, index }
 
   // add color to current step only
