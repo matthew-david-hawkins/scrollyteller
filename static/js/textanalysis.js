@@ -176,7 +176,7 @@ function analyzeTweets(tweets, lollipopColor, lollipopIndex){
   // Change the X coordinates of line and circle
   //var svg = d3.select("#my_dataviz")
   // Select the node that will be observed for mutations
-  const targetNode = document.getElementById('this-step-monitor');
+  const targetNode = document.getElementById('this-step-monitor4');
 
   // Options for the observer (which mutations to observe)
   const config = { attributes: true, childList: true, subtree: true };
@@ -185,12 +185,12 @@ function analyzeTweets(tweets, lollipopColor, lollipopIndex){
   const callback = function(mutationsList, observer) {
     svg.selectAll("circle")
     .transition()
-    .duration(2000)
+    .duration(1000)
     .attr("cx", function(d) { return x(d.value); })
   
     svg.selectAll("line")
     .transition()
-    .duration(2000)
+    .duration(1000)
     .attr("x1", function(d) { return x(d.value); })
     console.log(response)
   };
@@ -208,48 +208,130 @@ function analyzeTweets(tweets, lollipopColor, lollipopIndex){
 }
 
 
-function submitTweetText() { // When the user clicks the button, load data
+// for creating a bar chart visualization of most popular tweet
+function tweetBar(data, scale) {
+  
+  //set up svg using margin conventions - we'll need plenty of room on the left for labels
+  // set the dimensions and margins of the graph
+  var clientHeight = document.getElementById('figure3').clientHeight;
+  var clientWidth = document.getElementById('figure3').clientWidth;
+  var margin = {top: 10, right: 50, bottom: 10, left: 100},
+  width = clientWidth - margin.left - margin.right,
+  height = clientHeight - margin.top - margin.bottom;
+  
+  // Append the svg object to the page
+  var svg = d3.select("#barchart").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  
+  // set up X Axis
+  var x = d3.scaleLinear()
+  .range([0, width])
+  .domain([0, scale]);
+  
+  // Add 1st Y Axis
+  var y1 = d3.scaleBand()
+    .range([ 0, height/8])
+    .padding(0.25)
+    .domain([data[0].name]);
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(d3.axisLeft(y1))
+    .attr("transform", "translate(0," + height / 4 + ")")
+
+  // Add 2nd Y Axis
+  var y2 = d3.scaleBand()
+    .range([ 0, height/8])
+    .padding(0.25)
+    .domain([data[1].name]);
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(d3.axisLeft(y2))
+    .attr("transform", "translate(0," + height * 3 / 4 + ")")
+  
+  // Bars and text label graphical element
+  var bars = svg.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("g")
+  
+  // Bars and text label graphical element
+  bars.append("rect")
+    .attr("y", function(d) {return d.index == 0 ? height / 4 + height / 8 * 0.25 : height * 3 / 4  + height / 8 * 0.25 })
+    .attr("height", y1.bandwidth())
+    .attr("x", 0)
+    .attr("width", x(0))
+    .attr("fill", function(d) {return d.index == 0 ? "#1f77b4" : "#ff7f0e"});
+  
+  //add a value label to the right of each bar
+  bars.append("text")
+    .attr("class", "label")
+    //y position of the label is halfway down the bar
+    .attr("y", function(d) {return d.index == 0 ? height / 4 + height / 8 * 0.25 + height / 32: height * 3 / 4  + height / 8 * 0.25 + height / 32})
+    //x position is 3 pixels to the right of the bar
+    .attr("x", x(0))
+    .text(function (d) {return d.value;})
+    .attr("font-size", "13px");
+
+
+  fo1 = svg.append("foreignObject")
+    .attr("width", width)
+    .attr("height", height/4)
+    .attr("x", "0")
+    .attr("y", "0")
+    .text(data[0].tweet)
+    .style("color", "#1f77b4")
+    .style("align", "center")
     
-      // Step 1.1 text
-    var politician1 = sel1;
-    var p1State = "New Hampshire";
-    var politician2 = sel2;
-    var p2State = "Texas";
-    var winner = politician1;
-    var loser = politician2;
-    var p1TweetRate = 3;
-    var p2TweetRate = 4.4;
-    var tweetRange = 500;
-    var heavyTweeter = politician2;
-    var lightTweeter = politician1;
-    var tweetDifferential = 33;
-    var p1TweetVocab = ["middle", "class", "fair", "America", "Americans"];
-    var p2TweetVocab = ["great", 'wonderful', 'best', 'greatest', 'thanks'];
-    var p1TopTweetDate = "10-12-2019";
-    var p2TopTweetDate = "08-12-2019";
 
-    var s11Text = `${politician1} is furthest ahead of ${politician2} in: ${p1State}`;
-    var s12Text = `${politician2} is furthest ahead of ${politician1} in: ${p2State}`;
-    var s13Text = `${winner} has more popularity on Twitter overall than ${loser}`;
+  // fo1.append("p")
+  //   .attr("xmlns", "http://www.w3.org/1999/xhtml")
+  //   .text(data[0].tweet)
+  
+  fo2 = svg.append("foreignObject")
+    .attr("width", width)
+    .attr("height", height/4)
+    .attr("x", "0")
+    .attr("y", height/2)
+    .text(data[1].tweet)
+    .style("color", "#ff7f0e")
+    .style("align", "center")
+    
+  // fo2.append("p")
+  //   .attr("xmlns", "http://www.w3.org/1999/xhtml")
+  //   .text(data[1].tweet)
+  //   .style("color", "blue")
+  
+  // Change the X coordinates of line and circle
+  //var svg = d3.select("#my_dataviz")
+  // Select the node that will be observed for mutations
+  const targetNode = document.getElementById('this-step-monitor3');
 
-    var s21Text = `${politician1} has averaged ${p1TweetRate} tweets per day in the last ${tweetRange} days`;
-    var s22Text = `${politician2} has averaged ${p2TweetRate} tweets per day in the last ${tweetRange} days`;
-    var s23Text = `${heavyTweeter} has tweeted ${tweetDifferential}% more that ${lightTweeter} in the last ${tweetRange} days`;
+  // Options for the observer (which mutations to observe)
+  const config = { attributes: true, childList: true, subtree: true };
 
-    var s31Text = `The five most common words in ${politician1}'s tweets are: ${p1TweetVocab[0]}, ${p1TweetVocab[1]}, ${p1TweetVocab[2]}, ${p1TweetVocab[3]}, ${p1TweetVocab[4]}`;
-    var s32Text = `The five most common words in ${politician2}'s tweets are: ${p2TweetVocab[0]}, ${p2TweetVocab[1]}, ${p2TweetVocab[2]}, ${p2TweetVocab[3]}, ${p2TweetVocab[4]}`;
-    var s33Text = `${politician1}'s most popular tweet, which occured on ${p1TopTweetDate}, said this: `;
-    var s34Text = `${politician2}'s most popular tweet, which occured on ${p2TopTweetDate},  said this: `;
+  // Callback function to execute when mutations are observed
+  const callback1 = function(mutationsList, observer1) {
+    bars.selectAll("rect")
+    .transition()
+    .duration(1000)
+    .attr("width", function(d) { return x(d.value); })
+  
+    bars.selectAll("text")
+    .transition()
+    .duration(1000)
+    .attr("x", function(d) { return x(d.value) +3 ; })
+    //console.log(response)
+  };
 
-    var arr = [s11Text, s12Text, s13Text,
-              s21Text, s22Text, s23Text,
-              s31Text, s32Text, s33Text, s34Text];
+  // Create an observer instance linked to the callback function
+  const observer1 = new MutationObserver(callback1);
 
-    // Set up messages
-    d3.selectAll('.stepText')
-    .data(arr)
-    .text(function (d) {
-      // console.log(d);
-      return d;})
+  // Start observing the target node for configured mutations
+  observer1.observe(targetNode, config);
 
 }

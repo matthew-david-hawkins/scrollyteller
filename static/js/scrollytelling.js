@@ -155,13 +155,11 @@ function handleStepEnter3(response) {
     return i === response.index;
   })
 
-  // update graphic based on step
-  //figure3.select('p').text(response.index + 1);
-
 }
 
 function handleStepEnter4(response) {
   var lolli = document.getElementById("lollipop-container");
+  var lolliHeight = document.getElementById('lollipop1').clientHeight;
 
   switch(response.index) {
     case 0:
@@ -172,7 +170,7 @@ function handleStepEnter4(response) {
       break;
     case 1:
       // code block
-      lolli.style.transform = "translate(0px, -500px)";
+      lolli.style.transform = `translate(0px, -${lolliHeight}px)`;
       //lolli1.style.maxHeight = "0%";
       //lolli2.style.maxHeight = "100%";
       break;

@@ -35,7 +35,28 @@ function initializePlot(){
         }
     }
     );
+
+    Plotly.newPlot("barchart", 
+    [], 
+    {
+        barmode: 'stack',
+        autosize: true,
+        //width: 500,
+        title: "Most Popular Tweets",
+        xaxis: { title: "Retweets + Favorites"},
+        yaxis: { title: "" },
+        //height: 650,
+        margin: {
+        l: 50,
+        r: 50,
+        b: 100,
+        t: 100,
+        pad: 4
+        }
+    }
+    );
 }
+
 
 // Select user choices from multi drop down
 var selectv = []; // array of the selected politicians
@@ -98,7 +119,8 @@ function handleSubmit() {
     var mostPopularP = "" // initializa most popular tweet text
     
     // initialize text analysis slides
-    d3.select('#figure3').html("");
+    d3.select('#barchart').html("");
+    d3.select('#tweet-text').html("");
     //d3.select('#figure4').html("");
 
 
@@ -147,29 +169,41 @@ function handleSubmit() {
     });
 
     // Make API calls and analyze responses
-    d3.json(userUrl1).then(function(data){
-        textAnalysis = analyzeTweets(data, "#1f77b4", "1"); // perform text analysis of the tweets
-        tweetReachVsTime(data, 'rgba(31, 119, 180, 1)'); // perform text analysis of the tweets
-        console.log(textAnalysis)
-        // Set up most popular tweet slide
-        d3.select('#figure3').insert("p").html(`<br>${selectv[0]}'s Most Popular Tweet: <br><br><strong>${textAnalysis.mostPopular}</strong><br><br>
-        was retweeted ${textAnalysis.retweetCount} times<br>`).style("color", "#1f77b4") // Plotly "muted blue"
-        // Set up most vocabulary slide
-        // d3.select('#figure4').insert("p").html(`<br>${selectv[0]} uses these words: <br><br><strong>${textAnalysis.vocab}</strong><br><br> 
-        // unusually often in tweets.`).style("color", "#1f77b4") // Plotly "muted blue"
+    d3.json(userUrl1).then(function(data1){
+        textAnalysis1 = analyzeTweets(data1, "#1f77b4", "1"); // perform text analysis of the tweets
+        tweetReachVsTime(data1, 'rgba(31, 119, 180, 1)'); // perform text analysis of the tweets
+        console.log(textAnalysis1)
+        
+        // Make API calls and analyze responses
+        d3.json(userUrl2).then(function(data2){
+            textAnalysis2 = analyzeTweets(data2, "#ff7f0e", "2");
+            tweetReachVsTime(data2, 'rgba(255, 127, 14, 1)');
+            tweetBar([{
+                "name": selectv[0],
+                "value": textAnalysis1.retweetCount,
+                "index": 0,
+                "tweet": textAnalysis1.mostPopular
+              },
+              {
+                "name": selectv[1],
+                "value": textAnalysis2.retweetCount,
+                "index": 1,
+                "tweet": textAnalysis2.mostPopular
+              }], Math.max(textAnalysis1.retweetCount, textAnalysis2.retweetCount));
+            completeFunction(); // hide spinner once API calls have returned
+        });
+
     });
 
-    // Make API calls and analyze responses
-    d3.json(userUrl2).then(function(data){
-        textAnalysis = analyzeTweets(data, "#ff7f0e", "2");
-        tweetReachVsTime(data, 'rgba(255, 127, 14, 1)');
-        completeFunction(); // hide spinner once API calls have returned
-        d3.select('#figure3').insert("p").html(`<br>${selectv[1]}'s Most Popular Tweet: <br><br><strong>${textAnalysis.mostPopular}</strong><br><br>
-        was retweeted ${textAnalysis.retweetCount} times<br>`).style("color", "#ff7f0e"); // Plotly "safety orange"
-        // Set up most vocabulary slide
-        // d3.select('#figure4').insert("p").html(`<br>${selectv[1]} uses these words: <br><br><strong>${textAnalysis.vocab}</strong><br><br> 
-        // unusually often in tweets.`).style("color", "#ff7f0e"); // Plotly "safety orange"
-    });
+    // // Make API calls and analyze responses
+    // d3.json(userUrl2).then(function(data){
+    //     textAnalysis = analyzeTweets(data, "#ff7f0e", "2");
+    //     tweetReachVsTime(data, 'rgba(255, 127, 14, 1)');
+    //     completeFunction(); // hide spinner once API calls have returned
+    //     tweetBar();
+    //     d3.select('#tweet-text').insert("p").html(`<br>${selectv[1]}'s Most Popular Tweet: <br><br><strong>${textAnalysis.mostPopular}</strong><br><br>
+    //     was retweeted ${textAnalysis.retweetCount} times<br>`).style("color", "#ff7f0e"); // Plotly "safety orange"
+    // });
 
 };
 
