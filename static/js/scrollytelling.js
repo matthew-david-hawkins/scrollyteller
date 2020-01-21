@@ -113,21 +113,21 @@ function handleStepEnter2(response) {
   switch(response.index) {
     case 0:
       // code block
-      emphasizeTrace2('rgba(31, 119, 180, 1)')
-      emphasizeTrace1('rgba(255, 127, 14, 1)');
+      emphasizeTrace1('rgba(31, 119, 180, 1)')
+      emphasizeTrace2('rgba(255, 127, 14, 1)');
       break;
     case 1:
       // code block
-      emphasizeTrace2('rgba(31, 119, 180, 1)')
-      emphasizeTrace1('rgba(255, 127, 14, 0.25)');
+      emphasizeTrace1('rgba(31, 119, 180, 1)')
+      emphasizeTrace2('rgba(255, 127, 14, 0.25)');
       break;
     case 2:
-      emphasizeTrace2('rgba(31, 119, 180, 0.25)');
-      emphasizeTrace1('rgba(255, 127, 14, 1)');
+      emphasizeTrace1('rgba(31, 119, 180, 0.25)');
+      emphasizeTrace2('rgba(255, 127, 14, 1)');
       break;
     case 3:
-      emphasizeTrace2('rgba(31, 119, 180, 1)');
-      emphasizeTrace1('rgba(255, 127, 14, 1)');
+      emphasizeTrace1('rgba(31, 119, 180, 1)');
+      emphasizeTrace2('rgba(255, 127, 14, 1)');
       break;
 
     default:

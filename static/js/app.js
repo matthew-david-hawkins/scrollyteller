@@ -63,7 +63,13 @@ var selectv = []; // array of the selected politicians
 var values = [];
 
 //initialize selection
-selected = d3.select("#keyInputs") // select the select
+selected = d3.select("#input1") // select the select
+.selectAll("option:checked")  // select the selected values
+.each(function() { values.push(this.value) 
+  }); // for each of those, get its value
+
+//initialize selection
+selected = d3.select("#input2") // select the select
 .selectAll("option:checked")  // select the selected values
 .each(function() { values.push(this.value) 
   }); // for each of those, get its value
@@ -82,18 +88,14 @@ d3.select("#keyInputs").on("change",function(d){
 
 // Function for showing loading status
 function loadingFunction() {
-    var x = document.getElementById("loadingDiv");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    }
-  }
+  d3.select("#button")
+    .text("Loading...")
+}
 
 // Function for hiding the loading status
 function completeFunction() {
-    var x = document.getElementById("loadingDiv");
-    if (x.style.display !== "none") {
-      x.style.display = "none";
-    }
+  d3.select("#button")
+    .text("Ready!")
   }
 
 function handleSubmit() {
