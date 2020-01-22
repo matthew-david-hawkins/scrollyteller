@@ -5,7 +5,7 @@
 
 // https://gist.github.com/deekayen/4148741
 
-const mostCommonWords =["im", "its", "rt", "&amp", "", "&amp;", "-", "amp", "realdonaldtrump", "berniesanders", "joebiden", 
+const CommonWords =["im", "its", "rt", "&amp", "", "&amp;", "-", "amp", "realdonaldtrump", "berniesanders", "joebiden", 
 "ewarren", "chasbuttigieg", "kamalaharris", "andrewyang", "tedcruz", "secretarycarson", "mike_pence", "", "the",
 "of", "to", "and", "a", "in", "is", "it", "you", "that", "he", "was", "for", 
 "on", "are", "with", "as", "i", "his", "they", "be", "at", "one", "have", "this", "from", "or", "had", "by", "not", 
@@ -99,7 +99,7 @@ function analyzeTweets(tweets, lollipopColor, lollipopIndex){
   i = 0
   j = 0
   while (i < 10) {
-    if (mostCommonWords.includes(sortable[j][0]) === false) { // if the next most common word is not in the most common words add it to vocab, otherwise continue
+    if (CommonWords.includes(sortable[j][0]) === false) { // if the next most common word is not in the most common words add it to vocab, otherwise continue
       vocab.push(sortable[j][0])
       vocab_counts.push(sortable[j][1])
       vocab_list.push({"word": sortable[j][0], "value": sortable[j][1]})
