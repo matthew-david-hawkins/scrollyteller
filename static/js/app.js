@@ -210,7 +210,10 @@ function handleSubmit() {
 };
 
 // Event listener on "Compare" button
-d3.select("#button").on("click", handleSubmit);
+d3.select("#button").on("click", function(){
+  console.log("handling click")
+  handleSubmit()
+  });
 
 // Initialize
 handleSubmit();
