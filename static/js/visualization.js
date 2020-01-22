@@ -153,11 +153,6 @@ function tweetReachVsTime(tweets, color){
 
   const sortedPopularity = groupedDates.sort((a, b) => b - a)
 
-
-  console.log(groupedDates)
-  console.log(groupedPopularity)
-
-
   Plotly.addTraces("lineplot", {x: groupedDates.slice(1,-1), 
   y: groupedPopularity.slice(1,-1), 
   name: screen_name,

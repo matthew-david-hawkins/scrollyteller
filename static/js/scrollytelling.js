@@ -23,10 +23,6 @@ var scrolly4 = main.select('#scrolly4');
 var figure4 = scrolly4.select('figure');
 var article4 = scrolly4.select('article');
 var step4 = article4.selectAll('.step');
-console.log(scrolly4)
-console.log(figure4)
-console.log(article4)
-console.log(step4)
 
 // initialize the scrollama
 var scroller1 = scrollama();
@@ -68,7 +64,6 @@ function handleResize() {
 
 // scrollama event handlers
 function handleStepEnter1(response) {
-  console.log(response)
   
   switch(response.index) {
     case 0:
@@ -108,7 +103,6 @@ function handleStepEnter1(response) {
 }
 
 function handleStepEnter2(response) {
-  console.log(response)
 
   switch(response.index) {
     case 0:
@@ -146,8 +140,6 @@ function handleStepEnter2(response) {
 }
 
 function handleStepEnter3(response) {
-
-  console.log(response)
   // response = { element, direction, index }
 
   // add color to current step only

@@ -99,6 +99,7 @@ function completeFunction() {
   }
 
 function handleSubmit() {
+    console.log("Handling Submission")
     // Prevent the page from refreshing
     //d3.event.preventDefault();
     
@@ -174,7 +175,6 @@ function handleSubmit() {
     d3.json(userUrl1).then(function(data1){
         textAnalysis1 = analyzeTweets(data1, "#1f77b4", "1"); // perform text analysis of the tweets
         tweetReachVsTime(data1, 'rgba(31, 119, 180, 1)'); // perform text analysis of the tweets
-        console.log(textAnalysis1)
         
         // Make API calls and analyze responses
         d3.json(userUrl2).then(function(data2){

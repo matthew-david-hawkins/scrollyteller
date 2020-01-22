@@ -111,8 +111,7 @@ function analyzeTweets(tweets, lollipopColor, lollipopIndex){
   // set the dimensions and margins of the graph
   var clientHeight = document.getElementById('figure4').clientHeight;
   var clientWidth = document.getElementById('figure4').clientWidth;
-  console.log(clientHeight)
-  console.log(clientWidth)
+
   var margin = {top: 10, right: 30, bottom: 40, left: 100},
   width = clientWidth - margin.left - margin.right,
   height = clientHeight - margin.top - margin.bottom;
@@ -126,10 +125,6 @@ function analyzeTweets(tweets, lollipopColor, lollipopIndex){
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-
-  console.log(vocab)
-  console.log(vocab_counts)
-  console.log(Math.max(vocab_counts))
 
   // Add X axis
   var x = d3.scaleLinear()
@@ -192,7 +187,6 @@ function analyzeTweets(tweets, lollipopColor, lollipopIndex){
     .transition()
     .duration(1000)
     .attr("x1", function(d) { return x(d.value); })
-    console.log(response)
   };
 
   // Create an observer instance linked to the callback function
@@ -325,7 +319,6 @@ function tweetBar(data, scale) {
     .transition()
     .duration(1000)
     .attr("x", function(d) { return x(d.value) +3 ; })
-    //console.log(response)
   };
 
   // Create an observer instance linked to the callback function
