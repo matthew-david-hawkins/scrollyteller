@@ -87,6 +87,7 @@ figure p {
   padding: 1rem;
   font-size: 1.5rem;
   background-color: #f3f3f3;
+  z-index: 999;
 }
 
 #lollipop-container {
