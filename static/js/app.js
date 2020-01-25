@@ -202,5 +202,5 @@ d3.select("#button").on("click", function(){
   handleSubmit()
   });
 
-// Initialize
-handleSubmit();
+// // Initialize
+// handleSubmit();
