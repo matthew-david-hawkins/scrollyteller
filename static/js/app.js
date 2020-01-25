@@ -20,7 +20,7 @@ function initializePlot(){
     Plotly.newPlot("lineplot", 
     [], 
     {
-        autosize: true,
+        //autosize: true,
         //width: 500,
         title: "Popularity on Twitter Over Time",
         xaxis: { title: "Date"},
@@ -32,28 +32,15 @@ function initializePlot(){
         b: 100,
         t: 100,
         pad: 4
+        },
+        showlegend: true,
+        legend: {
+          x: 1,
+          xanchor: 'right',
+          y: 1
         }
-    }
-    );
-
-    Plotly.newPlot("barchart", 
-    [], 
-    {
-        barmode: 'stack',
-        autosize: true,
-        //width: 500,
-        title: "Most Popular Tweets",
-        xaxis: { title: "Retweets + Favorites"},
-        yaxis: { title: "" },
-        //height: 650,
-        margin: {
-        l: 50,
-        r: 50,
-        b: 100,
-        t: 100,
-        pad: 4
-        }
-    }
+    },
+    {responsive: true}
     );
 }
 
