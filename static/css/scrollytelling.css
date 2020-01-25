@@ -69,15 +69,17 @@ figure p {
 }
 
 .step {
+  position: relative;
   height: 785px;
   transition-duration: 0.25s;
   transition-timing-function: linear;
   margin: 0 auto 2rem auto;
   /* background-color:white; */
   color: black;
+  z-index: 2;
 }
 
-.step:last-child {
+.step.last-child {
   margin-bottom: 0;
 }
 
@@ -86,10 +88,12 @@ figure p {
 }
 
 .step p {
+  position: relative;
   text-align: center;
   padding: 1rem;
   font-size: 1.5rem;
   background-color: #f3f3f3;
+  z-index: 2;
 }
 
 #lollipop-container {
