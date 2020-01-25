@@ -50,7 +50,7 @@ figure {
   -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   background-color: white;
-  z-index: 0;
+  z-index: 1;
 }
 
 figure p {
@@ -75,6 +75,7 @@ figure p {
   margin: 0 auto 2rem auto;
   /* background-color:white; */
   color: black;
+  z-index: -1;
 }
 
 .step:last-child {
@@ -90,7 +91,7 @@ figure p {
   padding: 1rem;
   font-size: 1.5rem;
   background-color: #f3f3f3;
-  z-index: 999;
+  z-index: -1;
 }
 
 #lollipop-container {
