@@ -42,7 +42,10 @@ function initializePlot(){
           y: 1
         }
     },
-    {responsive: true}
+    {
+      responsive: true,
+      displayModeBar: false
+    }
     );
 }
 
