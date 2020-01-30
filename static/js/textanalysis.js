@@ -274,7 +274,7 @@ function tweetBar(data, scale) {
 
 
   fo1 = svg.append("foreignObject")
-    .attr("width", width)
+    .attr("width", clientWidth)
     .attr("height", height/4)
     .attr("x", "0")
     .attr("y", "0")
@@ -288,7 +288,7 @@ function tweetBar(data, scale) {
   //   .text(data[0].tweet)
   
   fo2 = svg.append("foreignObject")
-    .attr("width", width)
+    .attr("width", clientWidth)
     .attr("height", height/4)
     .attr("x", "0")
     .attr("y", height/2)
