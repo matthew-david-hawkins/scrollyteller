@@ -37,6 +37,14 @@ article {
   padding: 0 1rem;
   max-width: 20rem;
   margin: 0 auto;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.container {
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, 0, 0);
 }
 
 figure {
