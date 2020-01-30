@@ -217,7 +217,8 @@ function tweetBar(data, scale) {
   var svg = d3.select("#barchart").append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+
+  var svg_g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
   // set up X Axis
@@ -231,7 +232,7 @@ function tweetBar(data, scale) {
     .padding(0.25)
     .domain([data[0].name]);
 
-  svg.append("g")
+  svg_g.append("g")
     .attr("class", "y axis")
     .call(d3.axisLeft(y1))
     .attr("transform", "translate(0," + height / 4 + ")")
@@ -242,13 +243,13 @@ function tweetBar(data, scale) {
     .padding(0.25)
     .domain([data[1].name]);
 
-  svg.append("g")
+  svg_g.append("g")
     .attr("class", "y axis")
     .call(d3.axisLeft(y2))
     .attr("transform", "translate(0," + height * 3 / 4 + ")")
   
   // Bars and text label graphical element
-  var bars = svg.selectAll(".bar")
+  var bars = svg_g.selectAll(".bar")
     .data(data)
     .enter()
     .append("g")
