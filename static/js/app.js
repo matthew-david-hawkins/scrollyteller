@@ -8,6 +8,8 @@ clearMap();
 // build base map
 var myMap = buildMap();
 
+//myMap.dragging.disable()
+
 // Add an empty contorl to map
 var layerControl = L.control.layers({}, {}, {collapsed:false}).addTo(myMap); // update the leaflet control with the named heatlayer
 

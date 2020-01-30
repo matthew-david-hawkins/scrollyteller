@@ -84,8 +84,11 @@ function createHeatLayer(data, colorString, mapObject){
 
   var heatmap = L.layerGroup(heatMarkers).addTo(mapObject);
 
-  var bounds = L.latLngBounds([[50, -125], [40, -81]]);
+  var bounds = L.latLngBounds([[50, -125], [40, -81], [49, -63]]); // fit lower 48 on the map
   mapObject.fitBounds(bounds);//works!
+
+  mapObject.panTo(new L.LatLng(41.49, -99.90)); // center on Kansas
+
 
   return heatmap
   
