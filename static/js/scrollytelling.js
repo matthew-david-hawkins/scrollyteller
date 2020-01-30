@@ -44,19 +44,30 @@ function handleResize() {
 
   figure1
     .style('height', figureHeight + 'px')
-    .style('top', figureMarginTop + 'px');
+    .style('top', figureMarginTop + 'px')
+    .style("z-index", 1);
   
   figure2
     .style('height', figureHeight + 'px')
-    .style('top', figureMarginTop + 'px');
+    .style('top', figureMarginTop + 'px')
+    .style("z-index", 1);
+
   
   figure3
     .style('height', figureHeight + 'px')
-    .style('top', figureMarginTop + 'px');
+    .style('top', figureMarginTop + 'px')
+    .style("z-index", 1);
 
   figure4
     .style('height', figureHeight + 'px')
-    .style('top', figureMarginTop + 'px');
+    .style('top', figureMarginTop + 'px')
+    .style("z-index", 1);
+
+  article1.style("z-index", 3);
+  article2.style("z-index", 3);
+  article3.style("z-index", 3);
+  article4.style("z-index", 3);
+
 
   // 3. tell scrollama to update new element dimensions
   scroller1.resize();
