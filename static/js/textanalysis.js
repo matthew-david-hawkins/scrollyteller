@@ -281,6 +281,7 @@ function tweetBar(data, scale) {
     .text(data[0].tweet)
     .style("color", "#1f77b4")
     .style("align", "center")
+    .style("font-size", "0.8rem")
     
 
   // fo1.append("p")
@@ -295,6 +296,7 @@ function tweetBar(data, scale) {
     .text(data[1].tweet)
     .style("color", "#ff7f0e")
     .style("align", "center")
+    .style("font-size", "0.8rem")
     
   // fo2.append("p")
   //   .attr("xmlns", "http://www.w3.org/1999/xhtml")
