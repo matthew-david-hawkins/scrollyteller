@@ -111,8 +111,6 @@ function handleSubmit() {
     // initialize text analysis slides
     d3.select('#barchart').html("");
     d3.select('#tweet-text').html("");
-    //d3.select('#figure4').html("");
-
 
     // Table which translates form selection into twitter username
     var politicianDict = {
@@ -202,5 +200,5 @@ d3.select("#button").on("click", function(){
   handleSubmit()
   });
 
-// // Initialize
-// handleSubmit();
+// Initialize
+handleSubmit();

@@ -27,7 +27,9 @@ function buildMap() {
 	  var myMap = L.map("map", {
 		center: [41.49, -99.90], // Central Kansas
 		zoom: 4,
-		layers: [darkmap]});
+    layers: [darkmap],
+    scrollWheelZoom: false
+  });
 	
 	  return myMap
 	};
@@ -81,6 +83,9 @@ function createHeatLayer(data, colorString, mapObject){
   // }).addTo(mapObject);
 
   var heatmap = L.layerGroup(heatMarkers).addTo(mapObject);
+
+  var bounds = L.latLngBounds([[50, -125], [40, -81]]);
+  mapObject.fitBounds(bounds);//works!
 
   return heatmap
   

@@ -70,7 +70,6 @@ figure p {
 
 .step {
   position: relative;
-  height: 785px;
   transition-duration: 0.25s;
   transition-timing-function: linear;
   margin: 0 auto 2rem auto;
