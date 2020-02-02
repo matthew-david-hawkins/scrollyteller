@@ -39,7 +39,9 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script> -->
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
 
-  
+  <!-- Week of the year -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+
   <!-- App specific sytlesheet -->
   <link rel="stylesheet" href="{{url_for('static', filename='css/scrollytelling.css')}}">
 
@@ -52,8 +54,7 @@
    
     <div class="row">
        <div style="text-align : center">
-         <h1>Who Has The Most Political Capital on Twitter?</h1>
-         <h2><br>Select two politicians to see how they stack up.</h2>
+         <h1>Which Politicians are Winning Twitter?</h1>
          <p><br></p>
        </div>
     </div>
@@ -115,6 +116,34 @@
     </div>
 
     <main>
+    <section id="intro2">
+      <p><br></p>
+    </section>
+
+  <section id="scrolly2">
+
+    <figure>
+      <!-- <p>1</p> -->
+      <div id="lineplot", style="height: 100%; width:100%"></div>
+    </figure>
+
+    <article>
+      <div class="step" data-step="1" data-scrollama-index="0">
+        <!-- <p class="stepText">STEP 1</p> -->
+      </div>
+      <div class="step is-active" data-step="2" data-scrollama-index="1">
+        <p class="stepText">To quantify how popular a politician is on Twitter, we totalled his/her <strong>Favorites & Retweets</strong> for each day.</p>
+      </div>
+      <div class="step" data-step="3" data-scrollama-index="2">
+        <p class="stepText">At the start of this project, we analyzed the 3200 most recent tweets for each politician.<br><br> More tweets are added to the dataset each day.</p>
+      </div>
+    </article>
+
+  </section>
+
+  <section id="outro2">
+    <p><br></p>
+  </section>
    <section id="intro">
        <p style="text-align : center"><br><strong>Start Scrolling To See Who's Ahead.</strong><br></pstyle="text-align : center">
     </section>
@@ -145,34 +174,7 @@
    <br>
    <br>
 
-   <section id="intro2">
-       <p><br></p>
-     </section>
 
-   <section id="scrolly2">
-
-    <figure>
-      <!-- <p>1</p> -->
-      <div id="lineplot", style="height: 100%; width:100%"></div>
-    </figure>
-
-     <article>
-       <div class="step" data-step="1" data-scrollama-index="0">
-         <!-- <p class="stepText">STEP 1</p> -->
-       </div>
-       <div class="step is-active" data-step="2" data-scrollama-index="1">
-         <p class="stepText">To quantify how popular a politician is on Twitter, we totalled his/her <strong>Favorites & Retweets</strong> for each day.</p>
-       </div>
-       <div class="step" data-step="3" data-scrollama-index="2">
-         <p class="stepText">At the start of this project, we analyzed the 3200 most recent tweets for each politician.<br><br> More tweets are added to the dataset each day.</p>
-       </div>
-     </article>
-
-   </section>
- 
-   <section id="outro2">
-     <p><br></p>
-   </section>
    <br>
    <br>
 
@@ -259,6 +261,7 @@
 
   <!-- Monitors user inputs, populates webpage -->
   <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
+
 
 </body>
 

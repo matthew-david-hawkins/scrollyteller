@@ -24,9 +24,9 @@ function initializePlot(){
     {
         //autosize: true,
         //width: 500,
-        title: "Popularity on Twitter Over Time",
-        xaxis: { title: "Date"},
-        yaxis: { title: "Retweets + Favorites" },
+        title: "Popularity Over Time",
+        xaxis: { title: "Week of the Year"},
+        yaxis: { title: "Weekly Retweets + Favorites\n" },
         //height: 650,
         margin: {
         l: 50,
@@ -164,12 +164,13 @@ function handleSubmit() {
     // Make API calls and analyze responses
     d3.json(userUrl1).then(function(data1){
         textAnalysis1 = analyzeTweets(data1, "#1f77b4", "1"); // perform text analysis of the tweets
-        tweetReachVsTime(data1, 'rgba(31, 119, 180, 1)'); // perform text analysis of the tweets
-        
+        length1 = tweetReachVsTime(data1, 'rgba(31, 119, 180, 1)', 0); // perform text analysis of the tweets
+        console.log(length1)
         // Make API calls and analyze responses
         d3.json(userUrl2).then(function(data2){
             textAnalysis2 = analyzeTweets(data2, "#ff7f0e", "2");
-            tweetReachVsTime(data2, 'rgba(255, 127, 14, 1)');
+            length2 = tweetReachVsTime(data2, 'rgba(255, 127, 14, 1)', length1);
+            console.log(length2)
             tweetBar([{
                 "name": selectv[0],
                 "value": textAnalysis1.retweetCount,

@@ -110,7 +110,7 @@ function parseDate(s) {
 //--------------------------------------------------
 // Groups tweets by month, and sum of retweets and and favorites
 //--------------------------------------------------
-function tweetReachVsTime(tweets, color){
+function tweetReachVsTime(tweets, color, length){
 // args - tweets: json
 // Given a set a tweets, group them by day and retweets + favorites, add trace to lineplot with the data
   var screen_name = tweets[0].Screen_Name
@@ -133,11 +133,8 @@ function tweetReachVsTime(tweets, color){
   //2) sort:
   list.sort(function(a, b) {
     return ((a.date < b.date) ? -1 : ((a.name == b.name) ? 0 : 1));
-    //Sort could be modified to, for example, sort on the age 
-    // if the name is the same.
   });
 
-  //3) separate them back out:
   for (var k = 0; k < list.length; k++) {
     dates[k] = list[k].date;
     popularity[k] = list[k].popularity;
@@ -147,14 +144,18 @@ function tweetReachVsTime(tweets, color){
   counter = {}
   var i;
   for (i = 0; i < dates.length; i++) {
-  dategroup = dates[i].getFullYear().toString() + "-" + (dates[i].getMonth() + 1).toString() + "-" + dates[i].getDate().toString() // group by yyyy-mm
-  if (typeof(counter[dategroup]) !== 'undefined'){
-    counter[dategroup] += popularity[i];
+  
+    var yearWeek = moment(dates[i]).year()+'-'+moment(dates[i]).week();
+  //  dategroup = dates[i].getFullYear().toString() + "-" + (dates[i].getMonth() + 1).toString() // old approach, group by day
+
+  if (typeof(counter[yearWeek]) !== 'undefined'){
+    counter[yearWeek] += popularity[i];
   } else {
-    counter[dategroup] = popularity[i];
+    counter[yearWeek] = popularity[i];
   }
   }
 
+  console.log(counter)
   // Create arrays from counter
   groupedDates = Object.keys(counter)
   groupedPopularity = Object.values(counter)
@@ -164,10 +165,28 @@ function tweetReachVsTime(tweets, color){
   Plotly.addTraces("lineplot", {x: groupedDates.slice(1,-1), 
   y: groupedPopularity.slice(1,-1), 
   name: screen_name,
+  mode: 'lines+markers',
   line: {
     color: color,
     width: 2
   }}); // Don't plot the first or last pair because of incomplete data
+
+  
+  // If the range is blank leave the layout alone. If the range is not blank, find the range with the later start date, and use it as the x limits
+  if (length !== 0) {
+
+
+    startX = Math.abs(Object.keys(counter).length - length)
+
+    var update = {
+      xaxis: {range: [startX, Math.max(length, Object.keys(counter).length) - 3]}, //Math.max(length, Object.keys(counter).length)
+      };
+    
+      Plotly.update("lineplot", {}, update);
+
+  }
+    return Object.keys(counter).length
+  
 
 }
 
