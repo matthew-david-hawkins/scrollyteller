@@ -54,7 +54,7 @@
    
     <div class="row">
        <div style="text-align : center">
-         <h1>Which Politicians are Winning Twitter?</h1>
+         <h1>Which Politicians Are Winning On Twitter?</h1>
          <p><br></p>
        </div>
     </div>
@@ -117,7 +117,7 @@
 
     <main>
     <section id="intro2">
-      <p style="text-align : center"><br><strong>Start Scrolling To See Who's Ahead.</strong><br></pstyle="text-align : center">
+      <h3 style="text-align : center" id="introText"><br><strong>Start Scrolling To See Who's Ahead.</strong><br></h3>
     </section>
 
   <section id="scrolly2">
@@ -129,13 +129,13 @@
 
     <article>
       <div class="step" data-step="1" data-scrollama-index="0">
-        <!-- <p class="stepText">STEP 1</p> -->
+        <p class="stepText">To quantify how popular a politician is on Twitter, we totalled how many <br><strong>Favorites & Retweets</strong><br> he/she recieves each week.</p>
       </div>
       <div class="step is-active" data-step="2" data-scrollama-index="1">
-        <p class="stepText">To quantify how popular a politician is on Twitter, we totalled his/her <strong>Favorites & Retweets</strong> for each day.</p>
+        <p class="stepText" id="stepText1">[Politician 1] averages <br><strong>[X]</strong><br> weekly Favorites & Retweets</p>
       </div>
       <div class="step" data-step="3" data-scrollama-index="2">
-        <p class="stepText">At the start of this project, we analyzed the 3200 most recent tweets for each politician.<br><br> More tweets are added to the dataset each day.</p>
+        <p class="stepText" id="stepText2">[Politician 2] averages <br><strong>[X]</strong><br> weekly Favorites & Retweets</p>
       </div>
     </article>
 
@@ -145,7 +145,7 @@
     <p><br></p>
   </section>
    <section id="intro">
-    <p><br></p>
+    <h3 style="text-align : center">Where in the U.S. does their support come from?</h3>
     </section>
 
    <section id="scrolly1">
@@ -156,13 +156,14 @@
    </figure>
 
     <article>
-        <div class="step" data-step="1" data-scrollama-index="0">
+        <div class="step is-active" data-step="1" data-scrollama-index="0">
+            <p class="stepText">When Twitter users include a politician's campaign hashtag, for example,<br><br><strong>#KeepAmericaGreat</strong> or <strong>#FeeltheBern</strong><br><br> in their tweets, that user's location is added to this map.<br><br>More markers in a particular area indiciates  more support in that area.</p>
         </div>
-        <div class="step is-active" data-step="2" data-scrollama-index="1">
-            <p class="stepText">This dataset was collected using the Twitter API. <br><br>When users include a politician's campaign hashtag, for example,<br><br><strong>#KeepAmericaGreat</strong> or <strong>#FeeltheBern</strong><br><br> in their tweets, that user's location is added to this map.</p>
+        <div class="step" data-step="2" data-scrollama-index="1">
+          <p class="stepText" id="stepText3">Each politician's map is different.<br><br> Consider [Politcian 1]'s support map</p>
         </div>
         <div class="step" data-step="3" data-scrollama-index="2">
-            <p class="stepText">More markers in a particular area indiciate more support in that area.</p>
+          <p class="stepText" id="stepText4">Now, compare [Politcian 2]'s support map</p>
         </div>
     </article>
      
@@ -179,7 +180,7 @@
    <br>
 
    <section id="intro3">
-       <p></p>
+       <h3 style="text-align : center">How do the most popular tweets of these politicians compare?</h3>
    </section>
  
    <section id="scrolly3">
@@ -191,10 +192,7 @@
 
      <article>
        <div id="this-step-monitor3" class="step" data-step="1" data-scrollama-index="0">
-         <!-- <p class="stepText">STEP 1</p> -->
-       </div>
-       <div class="step is-active" data-step="2" data-scrollama-index="1">
-         <p class="stepText">The most popular tweet has the highest total of Favorites and Retweets.</p>
+         <p class="stepText">The tweets shown here have the highest total of <strog>Favorites and Retweets</strog>. <br><br>These tweets encapsulate what people love (or hate) about these politicians.</p>
        </div>
      </article>
 
@@ -206,7 +204,7 @@
    </section>
 
    <section id="intro4">
-     <p></p>
+     <h3 style="text-align : center">Which words are coming up over and over in these politcian's tweets?</h3>
    </section>
 
    <section id="scrolly4">
@@ -221,16 +219,16 @@
      </figure>
 
      <article>
-       <div id="this-step-monitor4" class="step" data-step="1" data-scrollama-index="0">
-         <!-- <p class="stepText">STEP 1</p> -->
-       </div>
-       <div class="step is-active" data-step="2" data-scrollama-index="1">
+       <div id="this-step-monitor4" class="step is-active" data-step="1" data-scrollama-index="0">
          <p class="stepText">To analyze a politician's unique twitter vocabulary, we extracted each word from all of their tweets and calculated the frequency at which each word appeared.
-           <br><br>We removed the 500 most common words in the English language to create a population of unique words.
+           <br><br>We removed the 500 most common words in the English language to create a chart of their unique words.
          </p>
        </div>
-       <div class="step" data-step="3" data-scrollama-index="2">
-        <!-- <p class="stepText">STEP 1</p> -->
+       <div class="step" data-step="2" data-scrollama-index="1 ">
+        <p class="stepText" id="stepText5">Have a look at [Politcian 1]'s unique vocabulary.</p>
+      </div>
+      <div class="step" data-step="3" data-scrollama-index="2">
+        <p class="stepText" id="stepText6">..and [Politcian 2]'s vocab.</p>
       </div>
      </article>
 
@@ -239,7 +237,7 @@
      
    <section id="outro4">
      <div style="text-align:center">     
-      <p><br>We hope you found this analysis interesting! Compare more politicians at the top of the page.<br></p>
+      <p><br>We hope you found this analysis interesting! If you did, follow us on Twitter, or get in touch on Reddit. <br><br>Compare more politicians at the top of the page.<br></p>
       <p><br><a href="#top">Jump to top of page</a><br></p>
     </div>
    </section>

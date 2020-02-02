@@ -123,7 +123,7 @@ function handleStepEnter2(response) {
       break;
     case 1:
       // code block
-      emphasizeTrace1('rgba(31, 119, 180, 1)')
+      emphasizeTrace1('rgba(31, 119, 180, 1.0)')
       emphasizeTrace2('rgba(255, 127, 14, 0.25)');
       break;
     case 2:
@@ -171,7 +171,7 @@ function handleStepEnter4(response) {
       //lolli2.style.maxHeight = "0%";
       // code block
       break;
-    case 1:
+    case 2:
       // code block
       lolli.style.transform = `translate(0px, -${lolliHeight}px)`;
       //lolli1.style.maxHeight = "0%";
@@ -212,7 +212,7 @@ function init() {
   // 3. bind scrollama event handlers (this can be chained like below)
   scroller1.setup({
     step: '#scrolly1 article .step',
-    offset: 0.33,
+    offset: 1.0,
 
     // set to true to see debug horizontal line
     debug: false,
@@ -221,7 +221,7 @@ function init() {
 
   scroller2.setup({
     step: '#scrolly2 article .step',
-    offset: 0.33,
+    offset: 1.0,
 
     // set to true to see debug horizontal line
     debug: false,
@@ -230,7 +230,7 @@ function init() {
 
   scroller3.setup({
     step: '#scrolly3 article .step',
-    offset: 0.33,
+    offset: 1.0,
 
     // set to true to see debug horizontal line
     debug: false,
@@ -239,7 +239,7 @@ function init() {
 
   scroller4.setup({
     step: '#scrolly4 article .step',
-    offset: 0.33,
+    offset: 1.0,
 
     // set to true to see debug horizontal line
     debug: false,

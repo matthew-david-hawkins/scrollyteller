@@ -82,12 +82,18 @@ d3.select("#keyInputs").on("change",function(d){
 function loadingFunction() {
   d3.select("#button")
     .text("Loading...")
+
+  d3.select("#introText")
+    .html("<br><strong>Just a sec. We're getting things ready...</strong><br>")
 }
 
 // Function for hiding the loading status
 function completeFunction() {
   d3.select("#button")
     .text("Ready!")
+
+  d3.select("#introText")
+  .html("<br><strong>Ok! Let's See Who's Ahead.</strong><br><br>Sit Back and Start Scrolling...")
   }
 
 function handleSubmit() {
@@ -145,6 +151,12 @@ function handleSubmit() {
     var userUrl1 = "https://twitter-history-api.herokuapp.com/api/historical/" + userName1;
     var userUrl2 = "https://twitter-history-api.herokuapp.com/api/historical/" + userName2;
 
+    // Update page messages
+    d3.select("#stepText3")
+      .html(`Each politician's map is different.<br><br> Consider <strong>${selectv[0]}'s</strong> support map`)
+    d3.select("#stepText4")
+      .html(`Now, compare <strong>${selectv[1]}'s</strong> support map`)
+
     //---------------------------------------
     // Make API calls and analyze responses
     //---------------------------------------
@@ -153,24 +165,27 @@ function handleSubmit() {
         pLayer1 = createHeatLayer(data, "SkyBlue", myMap) // Create a heatlayer in fuschia and add it to the map
         layerControl.addOverlay(pLayer1, selectv[0].fontcolor("SkyBlue")); // add the heatlayer to the Leaflet control
         layerControl.expand(); // expand the layer control
+        d3.json(hashtagUrl2).then(function(data){
+          pLayer2 = createHeatLayer(data, "ORANGE", myMap) // Create a heatlayer in orange and add it to the map
+          layerControl.addOverlay(pLayer2, selectv[1].fontcolor("ORANGE")); // add the heatlayer to the Leaflet control
+        });
     });
 
-    // Make API calls and analyze responses
-    d3.json(hashtagUrl2).then(function(data){
-        pLayer2 = createHeatLayer(data, "ORANGE", myMap) // Create a heatlayer in orange and add it to the map
-        layerControl.addOverlay(pLayer2, selectv[1].fontcolor("ORANGE")); // add the heatlayer to the Leaflet control
-    });
 
     // Make API calls and analyze responses
     d3.json(userUrl1).then(function(data1){
         textAnalysis1 = analyzeTweets(data1, "#1f77b4", "1"); // perform text analysis of the tweets
-        length1 = tweetReachVsTime(data1, 'rgba(31, 119, 180, 1)', 0); // perform text analysis of the tweets
-        console.log(length1)
+        response1 = tweetReachVsTime(data1, 'rgba(31, 119, 180, 1)', 0); // perform text analysis of the tweets
+        d3.select("#stepText1")
+        .html(`${selectv[0]} averages <br><strong>${Math.round(response1[1]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong><br> weekly Favorites & Retweets`)
         // Make API calls and analyze responses
         d3.json(userUrl2).then(function(data2){
             textAnalysis2 = analyzeTweets(data2, "#ff7f0e", "2");
-            length2 = tweetReachVsTime(data2, 'rgba(255, 127, 14, 1)', length1);
-            console.log(length2)
+            response2 = tweetReachVsTime(data2, 'rgba(255, 127, 14, 1)', response1[0]);
+
+            d3.select("#stepText2")
+            .html(`${selectv[1]} averages <br><strong>${Math.round(response2[1]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong><br> weekly Favorites & Retweets`)
+
             tweetBar([{
                 "name": selectv[0],
                 "value": textAnalysis1.retweetCount,
@@ -183,6 +198,11 @@ function handleSubmit() {
                 "index": 1,
                 "tweet": textAnalysis2.mostPopular
               }], Math.max(textAnalysis1.retweetCount, textAnalysis2.retweetCount));
+            
+              d3.select("#stepText5")
+              .html(`Have a look at ${selectv[0]}'s unique vocabulary.`)
+              d3.select("#stepText6")
+              .html(`...And ${selectv[1]}'s vocab.`)
             completeFunction(); // hide spinner once API calls have returned
         });
 

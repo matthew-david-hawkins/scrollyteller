@@ -108,3 +108,12 @@ figure p {
   transition: transform 0.5s;
 }
 
+#introText {
+  -webkit-transition: transform 0.5s; /* For Safari 3.1 to 6.0 */
+  transition: transform 0.5s;
+}
+
+foreignObject{
+  text-align: center;
+}
+

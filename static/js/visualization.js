@@ -30,7 +30,7 @@ function buildMap() {
     layers: [darkmap],
     scrollWheelZoom: false
   });
-	
+
 	  return myMap
 	};
 	
@@ -185,7 +185,11 @@ function tweetReachVsTime(tweets, color, length){
       Plotly.update("lineplot", {}, update);
 
   }
-    return Object.keys(counter).length
+
+  arr = groupedPopularity.slice(1,-1)
+  avgReach = arr.reduce((a,b) => a + b, 0) / arr.length
+  
+  return [Object.keys(counter).length, avgReach]
   
 
 }
