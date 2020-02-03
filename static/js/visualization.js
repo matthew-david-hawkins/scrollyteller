@@ -149,7 +149,7 @@ function tweetReachVsTime(tweets, color, dateRange){
     var d = moment().day("Monday").year(moment(dates[i]).year()).week(moment(dates[i]).week()).toDate();
     var month = '' + (d.getMonth() + 1)
     var day = '' + d.getDate()
-    var year = d.getFullYear()
+    var year = dates[i].getFullYear()
 
     if (month.length < 2) 
         month = '0' + month;
@@ -157,8 +157,7 @@ function tweetReachVsTime(tweets, color, dateRange){
         day = '0' + day;
 
     dateString = [year, month, day].join('-')
-  //  dategroup = dates[i].getFullYear().toString() + "-" + (dates[i].getMonth() + 1).toString() // old approach, group by day
-
+  
     if (typeof(counter[dateString]) !== 'undefined'){
       counter[dateString] += popularity[i];
       weekDatesUnique[d] = "yes"
@@ -200,7 +199,7 @@ function tweetReachVsTime(tweets, color, dateRange){
         range: [xStart, xEnd]}, //Math.max(length, Object.keys(counter).length)
       };
     
-      Plotly.update("lineplot", {}, update);
+     Plotly.update("lineplot", {}, update);
 
   }
   else {

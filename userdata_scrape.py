@@ -35,7 +35,7 @@ def user_scrape():
     auth.set_access_token(creds['ACCESS_TOKEN'], creds['ACCESS_SECRET'])
     api = tweepy.API(auth)
 
-    users = ['@JoeBiden', '@ewarren', '@KamalaHarris', '@AndrewYang', '@TulsiGabbard', '@Chas10Buttigieg', '@MikeBloomberg', '@tedcruz', '@SecretaryCarson', '@Mike_Pence', '@realDonaldTrump', '@BernieSanders']
+    users = ['@ewarren', '@KamalaHarris', '@AndrewYang', '@TulsiGabbard', '@Chas10Buttigieg', '@MikeBloomberg', '@tedcruz', '@SecretaryCarson', '@Mike_Pence', '@BernieSanders','@JoeBiden', '@realDonaldTrump']
     a = 11
 
     while a > -1:
