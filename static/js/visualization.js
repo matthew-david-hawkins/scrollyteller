@@ -110,7 +110,7 @@ function parseDate(s) {
 //--------------------------------------------------
 // Groups tweets by month, and sum of retweets and and favorites
 //--------------------------------------------------
-function tweetReachVsTime(tweets, color, length){
+function tweetReachVsTime(tweets, color, dateRange){
 // args - tweets: json
 // Given a set a tweets, group them by day and retweets + favorites, add trace to lineplot with the data
   var screen_name = tweets[0].Screen_Name
@@ -142,54 +142,87 @@ function tweetReachVsTime(tweets, color, length){
 
   // Create a counter object with {month: total retweets and likes}\
   counter = {}
+  weekDatesUnique = {}
   var i;
   for (i = 0; i < dates.length; i++) {
   
-    var yearWeek = moment(dates[i]).year()+'-'+moment(dates[i]).week();
+    var d = moment().day("Monday").year(moment(dates[i]).year()).week(moment(dates[i]).week()).toDate();
+    var month = '' + (d.getMonth() + 1)
+    var day = '' + d.getDate()
+    var year = d.getFullYear()
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    dateString = [year, month, day].join('-')
   //  dategroup = dates[i].getFullYear().toString() + "-" + (dates[i].getMonth() + 1).toString() // old approach, group by day
 
-  if (typeof(counter[yearWeek]) !== 'undefined'){
-    counter[yearWeek] += popularity[i];
-  } else {
-    counter[yearWeek] = popularity[i];
-  }
+    if (typeof(counter[dateString]) !== 'undefined'){
+      counter[dateString] += popularity[i];
+      weekDatesUnique[d] = "yes"
+    } else {
+      counter[dateString] = popularity[i];
+    }
+
   }
 
-  console.log(counter)
+
   // Create arrays from counter
   groupedDates = Object.keys(counter)
   groupedPopularity = Object.values(counter)
 
-  const sortedPopularity = groupedDates.sort((a, b) => b - a)
+  console.log(Object.keys(weekDatesUnique))  
 
-  Plotly.addTraces("lineplot", {x: groupedDates.slice(1,-1), 
-  y: groupedPopularity.slice(1,-1), 
-  name: screen_name,
-  mode: 'lines+markers',
-  line: {
-    color: color,
-    width: 2
-  }}); // Don't plot the first or last pair because of incomplete data
+  Plotly.addTraces("lineplot", {
+    x: groupedDates.slice(1,-1), 
+    y: groupedPopularity.slice(1,-1), 
+    name: screen_name,
+    mode: 'lines+markers',
+    line: {
+      color: color,
+      width: 2
+    }
+  }); // Don't plot the first or last pair because of incomplete data
 
   
   // If the range is blank leave the layout alone. If the range is not blank, find the range with the later start date, and use it as the x limits
-  if (length !== 0) {
+  if (dateRange.length < groupedDates.length) {
 
+    console.log("Going with preexisting length")
+    xStart = dateRange[1]
+    xEnd = dateRange[dateRange.length-2]
 
-    startX = Math.abs(Object.keys(counter).length - length)
-
+    console.log(xStart, xEnd)
     var update = {
-      xaxis: {range: [startX, Math.max(length, Object.keys(counter).length) - 3]}, //Math.max(length, Object.keys(counter).length)
+      xaxis: {
+        range: [xStart, xEnd]}, //Math.max(length, Object.keys(counter).length)
       };
     
       Plotly.update("lineplot", {}, update);
 
   }
+  else {
+
+    console.log("Going with new length")
+    xStart = groupedDates[1]
+    xEnd = groupedDates[groupedDates.length-2]
+
+    console.log(xStart, xEnd)
+
+    var update = {
+      xaxis: {range: [xStart, xEnd]}, //Math.max(length, Object.keys(counter).length)
+      };
+    
+      Plotly.update("lineplot", {}, update);
+
+    }
 
   arr = groupedPopularity.slice(1,-1)
   avgReach = arr.reduce((a,b) => a + b, 0) / arr.length
   
-  return [Object.keys(counter).length, avgReach]
+  return [groupedDates, avgReach]
   
 
 }

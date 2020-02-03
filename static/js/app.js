@@ -19,6 +19,13 @@ var pLayer2 = L.layerGroup([]);
 
 // Initialize plot
 function initializePlot(){
+  
+  try {
+    Plotly.deleteTraces('lineplot', 0);
+    Plotly.deleteTraces('lineplot', 1);
+  }
+  catch{}
+
     Plotly.newPlot("lineplot", 
     [], 
     {
@@ -55,27 +62,33 @@ var selectv = []; // array of the selected politicians
 var values = [];
 
 //initialize selection
-selected = d3.select("#input1") // select the select
-.selectAll("option:checked")  // select the selected values
-.each(function() { values.push(this.value) 
-  }); // for each of those, get its value
+values.push(d3.select('#input1').node().value)
 
 //initialize selection
-selected = d3.select("#input2") // select the select
-.selectAll("option:checked")  // select the selected values
-.each(function() { values.push(this.value) 
-  }); // for each of those, get its value
+values.push(d3.select('#input2').node().value)
 
 selectv = values
 
-d3.select("#keyInputs").on("change",function(d){ 
+d3.select("#input1").on("change",function(d){ 
+  values = []
 
-    selected = d3.select(this) // select the select
-      .selectAll("option:checked")  // select the selected values
-      .each(function() { values.push(this.value) 
-        }); // for each of those, get its value
+  values.push(d3.select(this).node().value)
+  
+  values.push(d3.select('#input2').node().value)
+
+  selectv = values
+
+})
+
+d3.select("#input2").on("change",function(d){
+
+  values = []
+
+  values.push(d3.select(this).node().value)
+  
+  values.push(d3.select('#input1').node().value)
     
-    selectv = values
+  selectv = values
 })
 
 // Function for showing loading status
@@ -122,6 +135,8 @@ function handleSubmit() {
     // initialize text analysis slides
     d3.select('#barchart').html("");
     d3.select('#tweet-text').html("");
+    d3.select('#lollipop1').html("");
+    d3.select('#lollipop2').html("");
 
     // Table which translates form selection into twitter username
     var politicianDict = {
@@ -174,6 +189,9 @@ function handleSubmit() {
 
     // Make API calls and analyze responses
     d3.json(userUrl1).then(function(data1){
+        response1 = []
+        response2 = []
+        data2 = []
         textAnalysis1 = analyzeTweets(data1, "#1f77b4", "1"); // perform text analysis of the tweets
         response1 = tweetReachVsTime(data1, 'rgba(31, 119, 180, 1)', 0); // perform text analysis of the tweets
         d3.select("#stepText1")
@@ -182,7 +200,6 @@ function handleSubmit() {
         d3.json(userUrl2).then(function(data2){
             textAnalysis2 = analyzeTweets(data2, "#ff7f0e", "2");
             response2 = tweetReachVsTime(data2, 'rgba(255, 127, 14, 1)', response1[0]);
-
             d3.select("#stepText2")
             .html(`${selectv[1]} averages <br><strong>${Math.round(response2[1]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong><br> weekly Favorites & Retweets`)
 
