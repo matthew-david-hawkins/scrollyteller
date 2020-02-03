@@ -27,13 +27,15 @@ os.chdir(r"C:\Users\hawki\Documents\Drive\Thrum Engineering\Git\Thrum Engineerin
 with open("twitter_credentials.json", "r") as file:
     creds = json.load(file)
 
+print(creds)
+
 def user_scrape():
     #Set up Twitter Authentication
     auth = tweepy.OAuthHandler(creds['CONSUMER_KEY'], creds['CONSUMER_SECRET'])
     auth.set_access_token(creds['ACCESS_TOKEN'], creds['ACCESS_SECRET'])
     api = tweepy.API(auth)
 
-    users = ['@realDonaldTrump', '@BernieSanders', '@JoeBiden', '@ewarren', '@KamalaHarris', '@AndrewYang', '@TulsiGabbard', '@Chas10Buttigieg', '@MikeBloomberg', '@tedcruz', '@SecretaryCarson', '@Mike_Pence']
+    users = ['@JoeBiden', '@ewarren', '@KamalaHarris', '@AndrewYang', '@TulsiGabbard', '@Chas10Buttigieg', '@MikeBloomberg', '@tedcruz', '@SecretaryCarson', '@Mike_Pence', '@realDonaldTrump', '@BernieSanders']
     a = 11
 
     while a > -1:
@@ -109,10 +111,12 @@ def user_scrape():
 
         #Connect to Mongo DB Atlas
         mongokey = creds['mongo']
-        path = "mongodb+srv://vgalst:"+mongokey+"@tweetering-giclm.mongodb.net/test?retryWrites=true&w=majority"
+        path = "mongodb+srv://thrum-rw:"+mongokey+"@thrumcluster-f2hkj.mongodb.net/test?retryWrites=true&w=majority"
         client = pymongo.MongoClient(path)
-        db = client.twitter
+        db = client.twitter_thrum
         collection = db['userdata']
+        
+        print(user_data)
 
         #Only import records that do not exist in dataframe
         mongodata = pd.DataFrame(list(collection.find()))
@@ -132,7 +136,8 @@ def user_scrape():
         #Insert Into Mongo
         collection.insert_many(records)
         a = a - 1
-        time.sleep(300)
+        time.sleep(700)
     print('done')
-if __name__ == '__main__':
-    user_scrape()
+
+prompt = input("continue?")
+user_scrape()

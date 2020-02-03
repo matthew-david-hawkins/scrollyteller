@@ -176,12 +176,14 @@ function handleSubmit() {
     // Make API calls and analyze responses
     //---------------------------------------
 
-    d3.json(hashtagUrl1).then(function(data){
-        pLayer1 = createHeatLayer(data, "SkyBlue", myMap) // Create a heatlayer in fuschia and add it to the map
+    d3.json(hashtagUrl1).then(function(data1){
+        console.log("hashtag1 is ", data1.length)
+        pLayer1 = createHeatLayer(data1, "SkyBlue", myMap) // Create a heatlayer in fuschia and add it to the map
         layerControl.addOverlay(pLayer1, selectv[0].fontcolor("SkyBlue")); // add the heatlayer to the Leaflet control
         layerControl.expand(); // expand the layer control
-        d3.json(hashtagUrl2).then(function(data){
-          pLayer2 = createHeatLayer(data, "ORANGE", myMap) // Create a heatlayer in orange and add it to the map
+        d3.json(hashtagUrl2).then(function(data2){
+          console.log("hashtag1 is ", data2.length)
+          pLayer2 = createHeatLayer(data2, "ORANGE", myMap) // Create a heatlayer in orange and add it to the map
           layerControl.addOverlay(pLayer2, selectv[1].fontcolor("ORANGE")); // add the heatlayer to the Leaflet control
         });
     });
