@@ -149,7 +149,8 @@ function tweetReachVsTime(tweets, color, dateRange){
     var d = moment().day("Monday").year(moment(dates[i]).year()).week(moment(dates[i]).week()).toDate();
     var month = '' + (d.getMonth() + 1)
     var day = '' + d.getDate()
-    var year = dates[i].getFullYear()
+    var year = d.getFullYear()
+    2019-12-30
 
     if (month.length < 2) 
         month = '0' + month;
@@ -157,7 +158,11 @@ function tweetReachVsTime(tweets, color, dateRange){
         day = '0' + day;
 
     dateString = [year, month, day].join('-')
-  
+    if (dateString == '2018-12-30' && (dates[i].getFullYear() == '2019' || dates[i].getFullYear() == '2020')){ // Bug handling
+      dateString = '2019-12-30'
+    }
+
+    //console.log(dates[i], dates[i].getFullYear(), dateString, d)
     if (typeof(counter[dateString]) !== 'undefined'){
       counter[dateString] += popularity[i];
       weekDatesUnique[d] = "yes"
