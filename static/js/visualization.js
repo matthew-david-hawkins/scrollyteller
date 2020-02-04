@@ -150,17 +150,30 @@ function tweetReachVsTime(tweets, color, dateRange){
     var month = '' + (d.getMonth() + 1)
     var day = '' + d.getDate()
     var year = d.getFullYear()
-    2019-12-30
 
     if (month.length < 2) 
         month = '0' + month;
     if (day.length < 2) 
         day = '0' + day;
 
-    dateString = [year, month, day].join('-')
-    if (dateString == '2018-12-30' && (dates[i].getFullYear() == '2019' || dates[i].getFullYear() == '2020')){ // Bug handling
-      dateString = '2019-12-30'
+    
+    if(month == '01' && dates[i].getMonth() == 11){ // If the month of the week bin is in January, and the month of the original tweet is December...
+      //console.log("binned date moved forward")
+      dateString = [dates[i].getFullYear() + 1, month, day].join('-')
     }
+    else if (month == '12' && dates[i].getMonth() == 0) { // If the month of the week bin is in December, and the month of the original tweet is January...
+      //console.log("binned date moved backward")
+      dateString = [dates[i].getFullYear() - 1, month, day].join('-')
+    }
+    else if(year !== dates[i].getFullYear() && d.getMonth() == dates[i].getMonth()){ // if the years of the two tweets do not match, but the the months do, go with the original date
+      dateString = [dates[i].getFullYear(), month, day].join('-')
+    } 
+    else{
+      dateString = [year, month, day].join('-')
+    }
+
+    //console.log(dates[i], dateString)
+
 
     //console.log(dates[i], dates[i].getFullYear(), dateString, d)
     if (typeof(counter[dateString]) !== 'undefined'){
@@ -176,8 +189,6 @@ function tweetReachVsTime(tweets, color, dateRange){
   // Create arrays from counter
   groupedDates = Object.keys(counter)
   groupedPopularity = Object.values(counter)
-
-  console.log(Object.keys(weekDatesUnique))  
 
   Plotly.addTraces("lineplot", {
     x: groupedDates.slice(1,-1), 

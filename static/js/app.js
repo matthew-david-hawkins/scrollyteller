@@ -144,7 +144,7 @@ function handleSubmit() {
         "Donald Trump":"realDonaldTrump",
         "Joe Biden":"JoeBiden",
         "Elizabeth Warren":"ewarren",
-        "Pete Buttigieg":"Chas10Buttigieg",
+        "Pete Buttigieg":"PeteButtigieg",
         "Kamala Harris":"KamalaHarris",
         "Andrew Yang":"AndrewYang",
         "Ted Cruz":"tedcruz",

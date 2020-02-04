@@ -16,7 +16,7 @@ app = Flask(__name__)
 # Connect to Mongo DB Atlas
 
 deployment_matt = "mongodb+srv://thrum-rw:Skipshot1@thrumcluster-f2hkj.mongodb.net/test?retryWrites=true&w=majority"
-deployment_victor = "mongodb+srv://vgalst:akopova123@tweetering-giclm.mongodb.net/test?retryWrites=true&w=majority"
+#deployment_victor = "mongodb+srv://vgalst:akopova123@tweetering-giclm.mongodb.net/test?retryWrites=true&w=majority"
 testing = "mongodb://localhost:27017/myDatabase"
 
 client = pymongo.MongoClient(deployment_matt)
@@ -61,7 +61,7 @@ def sevenday(user_name: str):
         "realDonaldTrump": "#KeepAmericaGreat",
         "JoeBiden": "#TeamJoe",
         "ewarren": "#TeamWarren",
-        "Chas10Buttigieg": "#PeteButtigieg",
+        "PeteButtigieg": "#PeteButtigieg",
         "KamalaHarris": "#KamalaHarris",
         "AndrewYang": "#YangGang",
         "tedcruz": "#TedCruz",
