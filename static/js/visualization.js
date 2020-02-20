@@ -212,7 +212,8 @@ function tweetReachVsTime(tweets, color, dateRange){
     console.log(xStart, xEnd)
     var update = {
       xaxis: {
-        range: [xStart, xEnd]}, //Math.max(length, Object.keys(counter).length)
+        range: [xStart, xEnd],
+        fixedrange: true}, //Math.max(length, Object.keys(counter).length)
       };
     
      Plotly.update("lineplot", {}, update);
@@ -227,7 +228,7 @@ function tweetReachVsTime(tweets, color, dateRange){
     console.log(xStart, xEnd)
 
     var update = {
-      xaxis: {range: [xStart, xEnd]}, //Math.max(length, Object.keys(counter).length)
+      xaxis: {range: [xStart, xEnd], fixedrange: true}, //Math.max(length, Object.keys(counter).length)
       };
     
       Plotly.update("lineplot", {}, update);

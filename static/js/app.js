@@ -51,7 +51,8 @@ function initializePlot(){
     },
     {
       responsive: true,
-      displayModeBar: false
+      displayModeBar: false,
+      dragmode:false
     }
     );
 }
