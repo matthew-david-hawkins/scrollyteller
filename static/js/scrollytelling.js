@@ -178,22 +178,22 @@ function handleStepEnter4(response) {
   var lolli = document.getElementById("lollipop-container");
   var lolliHeight = document.getElementById('lollipop1').clientHeight;
 
-  switch(response.index) {
-    case 0:
-      //lolli1.style.maxHeight = "100%";
-      lolli.style.transform = "translate(0px, 0px)";
-      //lolli2.style.maxHeight = "0%";
-      // code block
-      break;
-    case 2:
-      // code block
-      lolli.style.transform = `translate(0px, -${lolliHeight}px)`;
-      //lolli1.style.maxHeight = "0%";
-      //lolli2.style.maxHeight = "100%";
-      break;
+  // switch(response.index) {
+  //   case 0:
+  //     //lolli1.style.maxHeight = "100%";
+  //     lolli.style.transform = "translate(0px, 0px)";
+  //     //lolli2.style.maxHeight = "0%";
+  //     // code block
+  //     break;
+  //   case 2:
+  //     // code block
+  //     lolli.style.transform = `translate(0px, -${lolliHeight}px)`;
+  //     //lolli1.style.maxHeight = "0%";
+  //     //lolli2.style.maxHeight = "100%";
+  //     break;
 
-    default:
-  }
+  //   default:
+  // }
   // response = { element, direction, index }
 
   // add color to current step only
