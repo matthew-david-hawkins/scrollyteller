@@ -24,11 +24,18 @@ var figure4 = scrolly4.select('figure');
 var article4 = scrolly4.select('article');
 var step4 = article4.selectAll('.step');
 
+var scrolly5 = main.select('#scrolly5');
+var figure5 = scrolly5.select('figure');
+var article5 = scrolly5.select('article');
+var step5 = article5.selectAll('.step');
+
 // initialize the scrollama
 var scroller1 = scrollama();
 var scroller2 = scrollama();
 var scroller3 = scrollama();
 var scroller4 = scrollama();
+var scroller5 = scrollama();
+
 
 // generic window resize listener event
 function handleResize() {
@@ -38,6 +45,7 @@ function handleResize() {
   step2.style('height', stepH + 'px');
   step3.style('height', stepH + 'px');
   step4.style('height', stepH + 'px');
+  step5.style('height', stepH + 'px');
 
   var figureHeight = window.innerHeight *0.8
   var figureMarginTop = (window.innerHeight - figureHeight) / 2
@@ -63,11 +71,17 @@ function handleResize() {
     .style('top', figureMarginTop + 'px')
     .style("z-index", 1);
 
+  figure5
+    .style('height', figureHeight + 'px')
+    .style('top', figureMarginTop + 'px')
+    .style("z-index", 1);
+
+
   article1.style("z-index", 3);
   article2.style("z-index", 3);
   article3.style("z-index", 3);
   article4.style("z-index", 3);
-
+  article5.style("z-index", 3);
 
   // 3. tell scrollama to update new element dimensions
   scroller1.resize();
@@ -192,6 +206,16 @@ function handleStepEnter4(response) {
 
 }
 
+function handleStepEnter5(response) {
+  // response = { element, direction, index }
+
+  // add color to current step only
+  step5.classed('is-active', function (d, i) {
+    return i === response.index;
+  })
+
+}
+
 
 
 function setupStickyfill() {
@@ -245,6 +269,15 @@ function init() {
     debug: false,
   })
     .onStepEnter(handleStepEnter4)
+
+  scroller5.setup({
+    step: '#scrolly5 article .step',
+    offset: 1.0,
+
+    // set to true to see debug horizontal line
+    debug: false,
+  })
+    .onStepEnter(handleStepEnter5)
 
 
   // setup resize event
