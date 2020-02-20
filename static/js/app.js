@@ -32,8 +32,8 @@ function initializePlot(){
         //autosize: true,
         //width: 500,
         title: "Popularity Over Time",
-        xaxis: { title: "Week of the Year"},
-        yaxis: { title: "Weekly Retweets + Favorites\n" },
+        xaxis: { title: "Week of the Year", fixedrange: true},
+        yaxis: { title: "Weekly Retweets + Favorites\n" , fixedrange: true},
         //height: 650,
         margin: {
         l: 50,
