@@ -1,6 +1,6 @@
-html {
+/* html {
   scroll-behavior: smooth;
-}
+} */
 
 .circle-transition {
   transition: transform 1.5s 0s, opacity 1.25s 0s;
