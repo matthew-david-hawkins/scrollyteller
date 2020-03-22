@@ -2,6 +2,10 @@
 // Scrollytelling handles scrolling events
 //-------------------------------------------------------
 
+// Remove the overflow:hidden css property on the div with id="outerWrapper" on squarespace. This prevents position:sticky from working on Squarespace
+d3.select('#outerWrapper')
+  .style('overflow', "visible")
+
 // using d3 for convenience
 var main = d3.select('main')
 var scrolly1 = main.select('#scrolly1');
@@ -44,15 +48,11 @@ const figureMarginTop = (window.innerHeight - figureHeight) / 2
 function handleResize() {
   console.log("handling resize")
   // 1. update height of step elements
-  // const stepH = Math.floor(window.innerHeight * 1.6);
   step1.style('height', stepH + 'px');
   step2.style('height', stepH + 'px');
   step3.style('height', stepH + 'px');
   step4.style('height', stepH + 'px');
   step5.style('height', stepH + 'px');
-
-  // const figureHeight = window.innerHeight *0.8
-  // const figureMarginTop = (window.innerHeight - figureHeight) / 2
   
   console.log(figureHeight, figureMarginTop, stepH)
 
