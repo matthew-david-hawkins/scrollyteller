@@ -50,6 +50,8 @@ function handleResize() {
 
   const figureHeight = window.innerHeight *0.8
   const figureMarginTop = (window.innerHeight - figureHeight) / 2
+  
+  console.log(figureHeight, figureMarginTop, stepH)
 
   figure1
     .style('height', figureHeight + 'px')
@@ -61,7 +63,6 @@ function handleResize() {
     .style('top', figureMarginTop + 'px')
     .style("z-index", 1);
 
-  
   figure3
     .style('height', figureHeight + 'px')
     .style('top', figureMarginTop + 'px')
