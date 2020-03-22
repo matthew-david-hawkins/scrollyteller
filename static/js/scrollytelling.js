@@ -86,6 +86,11 @@ function handleResize() {
 
   // 3. tell scrollama to update new element dimensions
   scroller1.resize();
+  scroller2.resize();
+  scroller3.resize();
+  scroller4.resize();
+  scroller5.resize();
+
 }
 
 // scrollama event handlers
