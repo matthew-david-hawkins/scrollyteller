@@ -41,15 +41,15 @@ var scroller5 = scrollama();
 function handleResize() {
   console.log("handling resize")
   // 1. update height of step elements
-  var stepH = Math.floor(window.innerHeight * 1.6);
+  const stepH = Math.floor(window.innerHeight * 1.6);
   step1.style('height', stepH + 'px');
   step2.style('height', stepH + 'px');
   step3.style('height', stepH + 'px');
   step4.style('height', stepH + 'px');
   step5.style('height', stepH + 'px');
 
-  var figureHeight = window.innerHeight *0.8
-  var figureMarginTop = (window.innerHeight - figureHeight) / 2
+  const figureHeight = window.innerHeight *0.8
+  const figureMarginTop = (window.innerHeight - figureHeight) / 2
 
   figure1
     .style('height', figureHeight + 'px')
