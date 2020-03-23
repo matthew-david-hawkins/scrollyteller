@@ -236,7 +236,7 @@ function setupStickyfill() {
 
 function init() {
 
-  var switchpoint = Math.floor(window.innerHeight * 1) + "px"
+  var switchpoint = stepH * 0.8 + "px"
   setupStickyfill();
 
   // 1. force a resize on load to ensure proper dimensions are sent to scrollama
