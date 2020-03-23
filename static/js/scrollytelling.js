@@ -236,7 +236,7 @@ function setupStickyfill() {
 
 function init() {
 
-  var midpoint = Math.floor(window.innerHeight * 0.5) + "px"
+  var switchpoint = Math.floor(window.innerHeight * 1) + "px"
   setupStickyfill();
 
   // 1. force a resize on load to ensure proper dimensions are sent to scrollama
@@ -247,7 +247,7 @@ function init() {
   // 3. bind scrollama event handlers (this can be chained like below)
   scroller1.setup({
     step: '#scrolly1 article .step',
-    offset: midpoint,
+    offset: switchpoint,
 
     // set to true to see debug horizontal line
     debug: false,
@@ -256,7 +256,7 @@ function init() {
 
   scroller2.setup({
     step: '#scrolly2 article .step',
-    offset: midpoint,
+    offset: switchpoint,
 
     // set to true to see debug horizontal line
     debug: false,
@@ -265,7 +265,7 @@ function init() {
 
   scroller3.setup({
     step: '#scrolly3 article .step',
-    offset: midpoint,
+    offset: switchpoint,
 
     // set to true to see debug horizontal line
     debug: false,
@@ -274,7 +274,7 @@ function init() {
 
   scroller4.setup({
     step: '#scrolly4 article .step',
-    offset: midpoint,
+    offset: switchpoint,
 
     // set to true to see debug horizontal line
     debug: false,
@@ -283,7 +283,7 @@ function init() {
 
   scroller5.setup({
     step: '#scrolly5 article .step',
-    offset: midpoint,
+    offset: switchpoint,
 
     // set to true to see debug horizontal line
     debug: false,
