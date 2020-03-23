@@ -146,31 +146,27 @@ function tweetReachVsTime(tweets, color, dateRange){
   var i;
   for (i = 0; i < dates.length; i++) {
   
-    var d = moment().day("Monday").year(moment(dates[i]).year()).week(moment(dates[i]).week()).toDate();
+    var y = moment(dates[i]).year()
+    var week = moment(dates[i]).week()
+    var month = moment(dates[i]).month()
+    if(month == 11 && week == 1){
+      var d = moment().year(y+1).week(week).day("Monday").toDate();
+    }
+    else{      
+      var d = moment().year(y).week(week).day("Monday").toDate();
+    }
     var month = '' + (d.getMonth() + 1)
     var day = '' + d.getDate()
     var year = d.getFullYear()
 
+    // Add zeros to date strings where necessary
     if (month.length < 2) 
         month = '0' + month;
     if (day.length < 2) 
         day = '0' + day;
 
-    
-    if(month == '01' && dates[i].getMonth() == 11){ // If the month of the week bin is in January, and the month of the original tweet is December...
-      //console.log("binned date moved forward")
-      dateString = [dates[i].getFullYear() + 1, month, day].join('-')
-    }
-    else if (month == '12' && dates[i].getMonth() == 0) { // If the month of the week bin is in December, and the month of the original tweet is January...
-      //console.log("binned date moved backward")
-      dateString = [dates[i].getFullYear() - 1, month, day].join('-')
-    }
-    else if(year !== dates[i].getFullYear() && d.getMonth() == dates[i].getMonth()){ // if the years of the two tweets do not match, but the the months do, go with the original date
-      dateString = [dates[i].getFullYear(), month, day].join('-')
-    } 
-    else{
-      dateString = [year, month, day].join('-')
-    }
+    dateString = [year, month, day].join('-')
+
 
     //console.log(dates[i], dateString)
 
