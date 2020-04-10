@@ -32,7 +32,6 @@
 }
 
 article {
-  z-index: 2 !important;
   position: relative;
   padding: 0 1rem;
   max-width: 20rem;
@@ -48,7 +47,6 @@ article {
 }
 
 figure {
-  z-index: 1 !important;
   position: -webkit-sticky;
   position: sticky;
   left: 0;
